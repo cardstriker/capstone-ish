@@ -12,6 +12,7 @@ def readInput():
     result_string_var.set("Processing... Please Wait...")
     urlInput = inputtxt.get("1.0",'end-1c')
     result = app.setURL(urlInput)
+    print(result)
     if result == False:
         result_string_var.set("The provided URL is Invalid")
     else:

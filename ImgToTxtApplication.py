@@ -4,10 +4,14 @@ from  urllib.request import urlopen
 import validators
 from PIL import Image
 from reportlab.graphics import renderPDF, renderPM
-from svglib.svglib import svg2rlg
+from cairosvg import svg2png
 import requests
 import re
 import ImageRecognizer
+import os
+import glob
+import pdfkit
+
 
 #open and read webpage (default)
 
@@ -18,6 +22,9 @@ video_formats = ['.mp4', '.mov', '.wmv', '.avi', '.swf', '.flv', '.f4v', '.mkv',
 class ImgToTxtApp:
 	def setURL(self, url):
 		global current_url
+		global soup
+
+		remove_files()
 
 		results = []
 		isURLValid = validators.url(url)
@@ -33,7 +40,9 @@ class ImgToTxtApp:
 		results.append(img_array)
 		media_array = getOtherMultimedia(soup)
 		results.append(media_array)
-		predictedResults = ImageRecognizer.predictImg()
+		updateHTML()
+		downloadHTMLAsPDF(url, "helloworld")
+		#predictedResults = ImageRecognizer.predictImg()
 
 
 		return results
@@ -73,22 +82,27 @@ def downloadImages(img_urls):
 		old_img_url = img_urls[i]
 		img_url = checkUrl(old_img_url)
 
-		if img_urls[i].lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')):
+		if img_urls[i].lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')) and img_urls[i] is not None:
 			try:
 				img = Image.open(requests.get(img_url, stream = True).raw)
-				img.save('images/' + img_urls[i].rsplit('/', 1)[-1])
+				img.save('downloadedImages/' + img_urls[i].rsplit('/')[-1])
 			except IOError as e:
 				print('images')
 				print(e)
-		'''
-		if img_url.lower().endswith('.svg'):
+		
+		if img_urls[i].lower().endswith('.svg') and img_urls[i] is not None:
 			try:
-				drawing = svg2rlg(img_url)
-				renderPM.drawToFile(drawing, 'images/'+ img_url + '.png', 'PNG')
+				print('hello')
+				svg = requests.get(img_url).text
+				print(svg)
+				#cairosvg.svg2png(url="hamster-6158669-colour.svg", write_to="hamster-6158669-colour.png")
+				svg_url = img_url.rsplit('/')[-1]
+				svg_url_name = svg_url.rsplit('.')[0]
+				print(svg_url_name)
+				svg2png(bytestring=svg, write_to='downloadedImages/' + svg_url_name.rsplit('/', 1)[-1] + '.png')
 			except IOError as e:
 				print('svg')
 				print(e)
-		'''
 
 def checkUrl(img_url):
 	if img_url.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif', '.svg')):
@@ -134,9 +148,29 @@ def getOtherMultimedia(soup):
 		media_array.append(audio_array)
 	return media_array
 
+def downloadHTMLAsPDF(url, filename):
+	with open("output.html", "w", encoding="utf-8") as file:
+		file.write(str(soup))
+
 def updateHTML():
-	return None
+	recog_results = ImageRecognizer.predictImg();
+	for key in recog_results.keys():
+		ele = soup.find_all(text=".*\s{recog_results[key][1]}*")
+		new_p = soup.new_tag("p")
+		new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+		
+		print(ele)
+		print(new_p.string)
+		for k in ele:
+			k.insert_after(new_p)
+			#soup.body.find(text=recog_results[key][1]).append(0, new_p)
+		
 
 def write_text(data: str, path: str):
     with open(path, 'w') as file:
         file.write(data)
+
+def remove_files():
+	files = glob.glob('downloadedImages/*')
+	for f in files:
+		os.remove(f)

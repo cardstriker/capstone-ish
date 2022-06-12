@@ -13,13 +13,13 @@ prediction.loadModel()
 def predictImg():
     imgfiles = []
     predictedResults = {}
-    for file in glob.glob("images/*"):
+    for file in glob.glob("downloadedImages/*"):
         predictions, probabilities = prediction.classifyImage(os.path.join(execution_path, file), result_count=1 )
         for eachPrediction, eachProbability in zip(predictions, probabilities):
             print(eachPrediction , " : " , eachProbability)
-            predictedResults[file] = eachPrediction
+            predictedResults[file] = [eachPrediction, os.path.basename(file)]
 
     return predictedResults
 
 
-print(predictImg())
+#print(predictImg())
