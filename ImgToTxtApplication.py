@@ -92,13 +92,9 @@ def downloadImages(img_urls):
 		
 		if img_urls[i].lower().endswith('.svg') and img_urls[i] is not None:
 			try:
-				print('hello')
 				svg = requests.get(img_url).text
-				print(svg)
-				#cairosvg.svg2png(url="hamster-6158669-colour.svg", write_to="hamster-6158669-colour.png")
 				svg_url = img_url.rsplit('/')[-1]
 				svg_url_name = svg_url.rsplit('.')[0]
-				print(svg_url_name)
 				svg2png(bytestring=svg, write_to='downloadedImages/' + svg_url_name.rsplit('/', 1)[-1] + '.png')
 			except IOError as e:
 				print('svg')
@@ -155,7 +151,8 @@ def downloadHTMLAsPDF(url, filename):
 def updateHTML():
 	recog_results = ImageRecognizer.predictImg();
 	for key in recog_results.keys():
-		ele = soup.find_all(text=".*\s{recog_results[key][1]}*")
+		#ele = soup.find_all(text=".*\s{recog_results[key][1]}*")
+		ele = soup.find_all(src=re.compile(recog_results[key][1]))
 		new_p = soup.new_tag("p")
 		new_p.string = recog_results[key][1] + " " + recog_results[key][0]
 		
