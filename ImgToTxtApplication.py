@@ -1,3 +1,14 @@
+'''
+Libraries Used
+BeautifulSoup : HTML parser
+svg2png : converting the svg images to PNG
+
+
+
+'''
+
+
+
 from bs4 import BeautifulSoup
 import urllib
 from  urllib.request import urlopen
@@ -15,10 +26,11 @@ import pdfkit
 
 #open and read webpage (default)
 
-#formats
+#Set the audio and video formats that the application can read
 audio_formats = ['.mp3', '.m4a', '.flac', '.wav', '.wma', '.aac', '.ogg']
 video_formats = ['.mp4', '.mov', '.wmv', '.avi', '.swf', '.flv', '.f4v', '.mkv', '.webm']
 
+#Running the application
 class ImgToTxtApp:
 	def setURL(self, url):
 		global current_url
@@ -30,24 +42,31 @@ class ImgToTxtApp:
 		isURLValid = validators.url(url)
 		if isinstance(isURLValid, validators.ValidationFailure):
 			return False
-
+		#Open the URL
 		page = urlopen(url).read()
+		#Parsing the webpage to BeautifulSoup
 		soup = BeautifulSoup(page, 'html.parser')
 		current_url = url
+		#Get list of hyperlinks
 		link_array = readLinks(soup)
 		results.append(link_array)
+		#Get list of image links
 		img_array = getImages(soup)
 		results.append(img_array)
+		#Get list of multimedia links
 		media_array = getOtherMultimedia(soup)
 		results.append(media_array)
 		updateHTML()
-		downloadHTMLAsPDF(url, "helloworld")
+		downloadHTML(url)
 		#predictedResults = ImageRecognizer.predictImg()
 
 
 		return results
 
 #Functions
+#Checking the links available within BeautifulSoup
+#Seperating the links whether is it a local path or hyperlink
+#Differeniated with HTTP or not.
 def readLinks(soup):
 	link_array = []
 	for link in soup.find_all('a'):
@@ -64,6 +83,9 @@ def readLinks(soup):
 	result_array.append(not_http_array)
 	return result_array
 
+
+#Get all the images from img tag or source tag
+#After finding the images, the images will be downloaded
 def getImages(soup):
 	img_array = []
 	for img in soup.find_all('img'):
@@ -77,9 +99,11 @@ def getImages(soup):
 
 	return img_array
 
+#Downloading of images with '.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif' formats and save the images with its original name
 def downloadImages(img_urls):
 	for i in range(len(img_urls)):
 		old_img_url = img_urls[i]
+		#Checking whether image exist
 		img_url = checkUrl(old_img_url)
 
 		if img_urls[i].lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif')) and img_urls[i] is not None:
@@ -99,7 +123,8 @@ def downloadImages(img_urls):
 			except IOError as e:
 				print('svg')
 				print(e)
-
+#Check if the images exist by requesting of the image URL
+#if the status code is 200 (mean success), then it is able to download
 def checkUrl(img_url):
 	if img_url.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif', '.svg')):
 		if img_url.startswith('http') == False:
@@ -124,7 +149,7 @@ def checkUrl(img_url):
 		print(img_url)
 		return img_url
 
-
+#Get all the multimedia links from source tag with either audio or video type
 def getOtherMultimedia(soup):
 	media_array = []
 	src_list = soup.find_all('source')
@@ -144,10 +169,11 @@ def getOtherMultimedia(soup):
 		media_array.append(audio_array)
 	return media_array
 
-def downloadHTMLAsPDF(url, filename):
+#Download the HTML with the updated results
+def downloadHTML(url):
 	with open("output.html", "w", encoding="utf-8") as file:
 		file.write(str(soup))
-
+#Insert the predicted results to the HTML
 def updateHTML():
 	recog_results = ImageRecognizer.predictImg();
 	for key in recog_results.keys():
@@ -163,10 +189,7 @@ def updateHTML():
 			#soup.body.find(text=recog_results[key][1]).append(0, new_p)
 		
 
-def write_text(data: str, path: str):
-    with open(path, 'w') as file:
-        file.write(data)
-
+#Remove all images from downloadedIMages folder everytime application runs
 def remove_files():
 	files = glob.glob('downloadedImages/*')
 	for f in files:
