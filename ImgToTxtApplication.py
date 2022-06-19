@@ -178,9 +178,22 @@ def updateHTML():
 	recog_results = ImageRecognizer.predictImg();
 	for key in recog_results.keys():
 		#ele = soup.find_all(text=".*\s{recog_results[key][1]}*")
-		ele = soup.find_all(src=re.compile(recog_results[key][1]))
-		new_p = soup.new_tag("p")
-		new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+		splitImageName = recog_results[key][1].rsplit(".", 1)
+		if(splitImageName[-1] == "png"):
+			ele = soup.find_all(src=re.compile(splitImageName[0]+".png"))
+			if ele:
+				new_p = soup.new_tag("p")
+				new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+
+			ele = soup.find_all(src=re.compile(splitImageName[0]+".svg"))
+			if ele:
+				new_p = soup.new_tag("p")
+				new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+		else:
+			ele = soup.find_all(src=re.compile(recog_results[key][1]))
+			if ele:
+				new_p = soup.new_tag("p")
+				new_p.string = recog_results[key][1] + " " + recog_results[key][0]
 		
 		print(ele)
 		print(new_p.string)

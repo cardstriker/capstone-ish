@@ -24,8 +24,8 @@ def readInput():
     if result == False:
         result_string_var.set("The provided URL is Invalid")
     else:
-        result_string_var.set('The provided URL is Valid\nNumber of hyperlinks: ' + str(len(result[0][0])) + '\nNumber of Website path: ' + str(len(result[0][1])) + '\nNumber of images: ' + str(len(result[1])) + '\nNumber of other multimedia: ' + str(len(result[2][0])+len(result[2][1])))
-
+        result_string_var.set('The provided URL is Valid\nNumber of hyperlinks: ' + str(len(result[0][0])) + '\nNumber of Website path: ' + str(len(result[0][1])) + '\nNumber of images: ' + str(len(result[1])) )
+#+ '\nNumber of other multimedia: ' + str(len(result[2][0])+len(result[2][1]))
 #Creating the textbox
 inputtxt = tk.Text(frame, height = 4, width = 25)
 inputtxt.pack()
