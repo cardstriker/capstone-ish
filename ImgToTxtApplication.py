@@ -154,8 +154,6 @@ def getOtherMultimedia(soup):
 	media_array = []
 	src_list = soup.find_all('source')
 	if src_list:
-		video_array = []
-		audio_array = []
 		for src in src_list:
 			if src.get('type').startswith('audio') or src.get('type').startswith('video'):
 				src = src.get('src')
@@ -164,10 +162,10 @@ def getOtherMultimedia(soup):
 					video_array.append(src)
 				if src.endswith(tuple(audio_formats)):
 					audio_array.append(src)
-
 		media_array.append(video_array)
 		media_array.append(audio_array)
-	return media_array
+		return media_array
+	return [[], []]
 
 #Download the HTML with the updated results
 def downloadHTML(url):
