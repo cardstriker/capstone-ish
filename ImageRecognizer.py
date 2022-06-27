@@ -7,6 +7,7 @@ The code below will be used when the images and multimedia links are gathered.
 '''
 
 from imageai.Classification import ImageClassification
+import easyocr
 import os
 import glob
 
@@ -26,6 +27,9 @@ prediction.setModelPath(os.path.join(execution_path, "resnet50_imagenet_tf.2.0.h
 #prediction.setModelPath(os.path.join(execution_path, "DenseNet-BC-121-32.h5"))
 prediction.loadModel()
 
+#OCR
+reader = easyocr.Reader(['ch_sim','en']) 
+
 #Get all the images from the downloadedImages folder and run it through the InageAi library.
 #For each image, a predicted result will be generated and returned
 def predictImg():
@@ -39,5 +43,14 @@ def predictImg():
 
     return predictedResults
 
+def predictOCR():
+    imgfiles = []
+    predictedResults = {}
+    for file in glob.glob("downloadedImages/*"):
+        result = reader.readtext((os.path.join(execution_path, file)), detail = 0)
+        predictedResults[file] = result
+    return predictedResults
+
 
 #print(predictImg())
+#print(predictOCR())

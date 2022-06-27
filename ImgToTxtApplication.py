@@ -174,6 +174,7 @@ def downloadHTML(url):
 #Insert the predicted results to the HTML
 def updateHTML():
 	recog_results = ImageRecognizer.predictImg();
+	ocr_results = ImageRecognizer.predictOCR();
 	for key in recog_results.keys():
 		#ele = soup.find_all(text=".*\s{recog_results[key][1]}*")
 		splitImageName = recog_results[key][1].rsplit(".", 1)
@@ -181,20 +182,20 @@ def updateHTML():
 			ele = soup.find_all(src=re.compile(splitImageName[0]+".png"))
 			if ele:
 				new_p = soup.new_tag("p")
-				new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+				new_p.string = recog_results[key][1] + "\n" + recog_results[key][0] + "\n" + ''.join(ocr_results[key])
 
 			ele = soup.find_all(src=re.compile(splitImageName[0]+".svg"))
 			if ele:
 				new_p = soup.new_tag("p")
-				new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+				new_p.string = recog_results[key][1] + "\n" + recog_results[key][0] + "\n" + ''.join(ocr_results[key])
 		else:
 			ele = soup.find_all(src=re.compile(recog_results[key][1]))
 			if ele:
 				new_p = soup.new_tag("p")
-				new_p.string = recog_results[key][1] + " " + recog_results[key][0]
+				new_p.string = recog_results[key][1] + "\n recog: " + recog_results[key][0] + "\n ocr: " + ''.join(ocr_results[key])
 		
-		print(ele)
-		print(new_p.string)
+		#print(ele)
+		#print(new_p.string)
 		for k in ele:
 			k.insert_after(new_p)
 			#soup.body.find(text=recog_results[key][1]).append(0, new_p)
