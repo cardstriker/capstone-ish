@@ -57,7 +57,8 @@ class ImgToTxtApp:
 		media_array = getOtherMultimedia(soup)
 		results.append(media_array)
 		updateHTML()
-		downloadHTML(url)
+		downloadHTML()
+		downloadHTMLAsPlainText()
 		#predictedResults = ImageRecognizer.predictImg()
 
 
@@ -168,9 +169,13 @@ def getOtherMultimedia(soup):
 	return [[], []]
 
 #Download the HTML with the updated results
-def downloadHTML(url):
+def downloadHTML():
 	with open("output.html", "w", encoding="utf-8") as file:
 		file.write(str(soup))
+
+def downloadHTMLAsPlainText():
+	with open('output.txt', 'w', encoding='utf-8') as f:
+		f.write(soup.get_text())			
 #Insert the predicted results to the HTML
 def updateHTML():
 	recog_results = ImageRecognizer.predictImg();
@@ -199,7 +204,7 @@ def updateHTML():
 		for k in ele:
 			k.insert_after(new_p)
 			#soup.body.find(text=recog_results[key][1]).append(0, new_p)
-		
+
 
 #Remove all images from downloadedIMages folder everytime application runs
 def remove_files():
