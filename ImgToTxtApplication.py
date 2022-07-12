@@ -12,6 +12,7 @@ svg2png : converting the svg images to PNG
 from bs4 import BeautifulSoup
 import urllib
 from  urllib.request import urlopen
+from urllib.parse import urlparse
 import validators
 from PIL import Image
 from reportlab.graphics import renderPDF, renderPM
@@ -34,6 +35,8 @@ video_formats = ['.mp4', '.mov', '.wmv', '.avi', '.swf', '.flv', '.f4v', '.mkv',
 class ImgToTxtApp:
 	def setURL(self, url):
 		global current_url
+		global main_url
+		global parsed
 		global soup
 
 		remove_files()
@@ -46,7 +49,11 @@ class ImgToTxtApp:
 		page = urlopen(url).read()
 		#Parsing the webpage to BeautifulSoup
 		soup = BeautifulSoup(page, 'html.parser')
+
 		current_url = url
+		parsed = urlparse(url)
+		main_url = parsed.scheme + '://' + parsed.netloc
+		print(main_url)
 		#Get list of hyperlinks
 		link_array = readLinks(soup)
 		results.append(link_array)
@@ -59,8 +66,8 @@ class ImgToTxtApp:
 		updateHTML()
 		downloadHTML()
 		downloadHTMLAsPlainText()
+		#generatePDFFromHTML()
 		#predictedResults = ImageRecognizer.predictImg()
-
 
 		return results
 
@@ -127,26 +134,37 @@ def downloadImages(img_urls):
 #Check if the images exist by requesting of the image URL
 #if the status code is 200 (mean success), then it is able to download
 def checkUrl(img_url):
+	#print("hello " + img_url)
+	imgUrlParsed = urlparse(img_url)
 	if img_url.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif', '.svg')):
-		if img_url.startswith('http') == False:
-			#check link exist or not
-			if img_url.startswith('//'):
-				try:
-					response = requests.get('https:' + img_url)
-					if response.status_code == 200:
-						print('Image exist')
-						img_url = 'https:' + img_url
-				except IOError as e:
-					print(e)
-			else:			
-				try:	
-					response = requests.get(current_url + img_url)
-					if response.status_code == 200:
-						print('Image exist')
-						img_url = current_url + img_url
-				except IOError as e:
-					print(e)
-
+		if imgUrlParsed.scheme != "":
+		#check link exist or not
+			print("hello " + img_url)
+			try:
+				response = requests.get(img_url)
+				if response.status_code == 200:
+					print('Image exist')
+					#img_url = 'https:' + img_url
+			except IOError as e:
+				print(e)
+		elif img_url.startswith("//"):
+			try:
+				#print("helloagain " + img_url)
+				response = requests.get(parsed.scheme +":"+ img_url)
+				if response.status_code == 200:
+					print('Image exist')
+					img_url = parsed.scheme + ":" + img_url
+			except IOError as e:
+				print(e)
+		else:			
+			try:	
+				print("hello2 " + (main_url + img_url))
+				response = requests.get(main_url + img_url)
+				if response.status_code == 200:
+					print('Image exist')
+					img_url = main_url + img_url
+			except IOError as e:
+				print(e)
 		print(img_url)
 		return img_url
 
@@ -155,6 +173,8 @@ def getOtherMultimedia(soup):
 	media_array = []
 	src_list = soup.find_all('source')
 	if src_list:
+		video_array = []
+		audio_array = []
 		for src in src_list:
 			if src.get('type').startswith('audio') or src.get('type').startswith('video'):
 				src = src.get('src')
@@ -176,6 +196,9 @@ def downloadHTML():
 def downloadHTMLAsPlainText():
 	with open('output.txt', 'w', encoding='utf-8') as f:
 		f.write(soup.get_text())			
+
+#def generatePDFFromHTML():
+#	pdfkit.from_url(current_url, 'output.pdf')
 #Insert the predicted results to the HTML
 def updateHTML():
 	recog_results = ImageRecognizer.predictImg();

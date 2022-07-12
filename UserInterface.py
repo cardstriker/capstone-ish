@@ -20,17 +20,23 @@ frame.geometry('300x400')
 def readInput():
     result_string_var.set("Processing... Please Wait...")
     urlInput = inputtxt.get("1.0",'end-1c')
+    start = time.time()
     pb['value'] = 50
     frame.update_idletasks()
     result = app.setURL(urlInput)
     pb['value'] = 100
     frame.update_idletasks()
     print(result)
+    end = time.time() - start
+    minute = int(end / 60)
+    seconds = int(end % 60)
     if result == False:
         result_string_var.set("The provided URL is Invalid")
+        print(seconds)
     else:
         result_string_var.set('The provided URL is Valid\nNumber of hyperlinks: ' + str(len(result[0][0])) + '\nNumber of Website path: ' + str(len(result[0][1])) + '\nNumber of images: ' + str(len(result[1])) + '\nNumber of other multimedia: ' + str(len(result[2][0])+len(result[2][1])))
-#
+        print(seconds)
+        
 #Creating the textbox
 inputtxt = tk.Text(frame, height = 4, width = 25)
 inputtxt.pack()
