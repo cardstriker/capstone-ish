@@ -5,7 +5,7 @@
 
 
 
-High severity OpenSSL bug could lead to remote code execution | The Daily Swig
+University of Glasgow: Scottish University of the Year 2022
 
 
 
@@ -39,6 +39,7 @@ High severity OpenSSL bug could lead to remote code execution | The Daily Swig
 
 
 
+Skip to main content
 
 
 
@@ -58,6 +59,10 @@ High severity OpenSSL bug could lead to remote code execution | The Daily Swig
 
 
 
+Study
+Research
+Explore
+Connect
 
 
 
@@ -72,14 +77,15 @@ High severity OpenSSL bug could lead to remote code execution | The Daily Swig
 
 
 
+Study
+Research
+Explore
+Connect
 
 
 
 
 
-the-daily-swig-logo.png
-coral_fungus
-The Daily SwigCybersecurity He55 dtd Vieros
 
 
 
@@ -99,102 +105,133 @@ The Daily SwigCybersecurity He55 dtd Vieros
 
 
 
+Search icon
 
 
 
-Regions
 
 
 
+Close menu icon
 
 
-Hacking News
 
 
 
 
+Menu icon bar 1
+Menu icon bar 2
+Menu icon bar 3
 
-Data Breaches
 
 
 
 
 
-Cyber-attacks
 
 
 
 
 
-Vulnerabilities
 
 
 
 
 
-Bug Bounties
 
 
 
+Study
+Research
+Explore
+Connect
 
 
-More
 
 
 
 
-About
 
 
 
 
 
 
-Africa
-Asia
-Europe
-Middle East
-Latin America
-North America
-Oceania
 
-View all US news
 
+STUDY SEARCH
 
 
 
-Cyber Warfare
-Russia is ‘failing’ in its mission to destabilize Ukraine’s networks
-regions.jpg
- recog: flagpole
+
+
+
+
+level of study
+Undergraduate
+
+Postgraduate taught
+Postgraduate research
+Short courses
+Continuing professional development
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Subjects A-Z
+Undergraduate study
+Postgraduate study
+Study abroad & exchange opportunities
+Visit us / Open Days
+Student life
+
+
+
+
+
+
+
+
+
+
+
+
+recog: castle
  ocr: 
 
 
 
 
 
+Flexible study
 
-
-
-
-
-
-Latest Hacking News
-Hacking Tools
-Hacking Techniques
-Pen Testing
-Cloud Security
-Database Security
-Email Security
-Network Security
-
-View all hacking news
-
-
-
-
-Hacker-powered security
-Human error bugs increasingly making a splash, study indicates
+Online study options
+Continuing professional development (CPD)
+Microcredentials courses
+Short courses at the University
+Access to Higher Education 
+Part-time undergraduate study
 
 
 
@@ -207,73 +244,21 @@ Human error bugs increasingly making a splash, study indicates
 
 
 
-Latest Data Breaches
-Data Leak
-Organizations
-Enterprise Security
-
-View all data breach news
-
-
-
-
-In focus
-Software supply chain attacks – everything you need to know
-
-
-
-
-
-
-
-
-
-
-
-
-Latest Cyber-attacks
-Cybercrime
-Cyber Warfare
-DDoS Attacks
-Supply Chain Attacks
-
-View all cyber-attack news
-
-
-
-
-Special report
-North Korean cyber-threat groups become top-tier adversaries
-cyberattacks.jpg
- recog: screen
+recog: academic_gown
  ocr: 
 
 
 
 
 
+Student life
 
-
-
-
-
-
-Latest Vulnerabilities
-Zero-Day News
-RCE
-XSS
-SQL Injection
-SSRF
-CSRF
-XS Leaks
-
-View all security vulnerability news
-
-
-
-
-What’s in a (domain) name?
-How expired web domains are helping criminal hacking campaigns
+New students
+Glasgow living, support and life beyond the books
+Chat to our students about life at UofG
+Undergraduate blogs
+Postgraduate blogs
+Student life vlogs
 
 
 
@@ -286,66 +271,296 @@ How expired web domains are helping criminal hacking campaigns
 
 
 
-Bug Bounty News
-VDP News
+
+
+
+
+
+
+International Glasgow
+Our diverse University community attracts students and staff from over 140 different countries.
+
+Information for international students
+Explore our global connections: Glasgow International
+Information for EU students and applicants
+Erasmus Mundus joint master degrees
+
+Ukraine: our response
+
+
+
+
+
+
+
+
+More about studying at Glasgow
+
+
+
+
+
+
 Research
-OSINT
-
-View all bug bounty news
-
-
-
-
-Bug Bounty Radar
-The latest programs for June 2022
 
 
 
 
 
 
+recog: geyser
+ ocr: 
+
+
+
+
+
+World-changing research
+
+REF 2021: recognition for our world-leading research, and the positive impact it has on society
+Explore our Research Beacons: six collaborative area of research excellence
+ARC: find out more about our flagship Advanced Research Centre, opening Spring 2022
 
 
 
 
 
 
-Interviews
-Analysis
-Research
-Deep Dives
-Browsers
-Ransomware
-Phishing
-Malware
-Encryption
-Privacy
-Mobile
-IoT
-Policy and Legislation
-Machine learning
-DNS
-Open Source
-Hardware
-Authentication
+
+
+
+
+
+
+
+
+
+
+
+
+Centres for Doctoral Training 
+Multiple PhD scholarships available:
+
+Future Ultrasonic Engineering (FUSE)
+Engineered Tissues for Discovery, Industry and Medicine (lifETIME)
+UKRI Centre for Socially Intelligent Artificial Agents (SOCIAL)
+Wellcome Trust PhD programme
+MRC Precision Medicine
+
+All our Centres for Doctoral Training 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Postgraduate research
+
+Research opportunities
+Doctoral training
+
+Strategy
+Developing our successful research community
+
+Our strategy and policies
+Our research excellence
+Our research environment
+
+Research A-Z
+
+Browse our research units and areas
+
+
+
+
+
+
+
+
+
+More about research at Glasgow
+
+
+
+
+
+
+Explore
+
+
+
+
+
+
+
+
+
+
+
+
+Visit us
+
+Maps and travel
+Undergraduate events
+Postgraduate events
+Our campuses
+Visitor attractions
+Campus tours
+The Hunterian
+City of Glasgow
+Scotland
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Find out more
+
+Schools
+Research Institutes
+Colleges
+The Library
+Subjects A-Z
+Staff A-Z
+Services A-Z
+Facts and figures
+
+
+
+
+
+
+
+
+
+
+
+
+recog: street_sign
+ ocr: WORLDTHEUNIVERSITYRANKINGS
+
+
+
+
+
+World top 100
+
+Times Higher Education World University Rankings
+QS World University Rankings
+
+
+Awards and rankings
+
+
+
+
+
+
+
+
+
+
+
+
+recog: fountain
+ ocr: 
+
+
+
+
+
+Sustainability at Glasgow
+
+The first UK University to declare it would divest from fossil fuels within a decade
+Ranked in the world top 20 for our work towards the United Nations’ Sustainable Development Goals
+
+
+
+
+
+
+
+
+
+
+
+
+News
+
+
+Full news listings
+
+
+
+
+
+
+
+
+
+
+
 Events
 
-View all infosec industry news
+
+Full event listings
 
 
 
 
-Cybersecurity conferences
-A schedule of events in 2022 and beyond
-more-topics.jpg
- recog: window_screen
+
+
+
+
+Explore more
+
+
+
+
+
+
+Connect
+
+
+
+
+
+
+
+recog: greenhouse
  ocr: 
 
 
 
 
 
+Support us
 
+Find out more about our £1billion development to build a campus fit for today and the future.
 
 
 
@@ -354,106 +569,91 @@ more-topics.jpg
 
 
 
-High severity OpenSSL bug could lead to remote code execution
 
 
-    Jessica Haworth
 
-06 July 2022 at 13:14 UTC
 
-    
-    Updated: 08 July 2022 at 12:02 UTC
 
-                
+recog: academic_gown
+ ocr: 
 
 
-Vulnerabilities
 
-RCE
 
-Open Source Software
 
+Alumni
 
+Stay in touch with your University. Find out more about alumni activities at the University of Glasgow.
 
 
 
-Twitter
 
 
 
 
 
-WhatsApp
 
 
 
 
 
-Facebook
+recog: lab_coat
+ ocr: 
 
 
 
 
 
-Reddit
+Business and innovation
 
+Working with the University of Glasgow: see how we can share our expertise with you.
 
 
 
 
-LinkedIn
 
 
 
 
 
-Email
 
 
 
+recog: steel_arch_bridge
+ ocr: d'
 
 
-Fixes are available, update now482b-article-220706-openssl-main.jpg
- recog: brass
- ocr: ipSN , HQCa _ ]t= ]8 + V5 {u0 $V7SSeH5My < P=e0<nRyTN ] '5 $]4ePyV( ` 4VFmISx 2 _TI9 -14-~ -CX ]/ROV_Z8] #尺40''':0X05-45 Kp $s0? :4 *2e PGTSUlpXg〈 % N[]}F:a9T~tnV. CK ! 719y (Iyr *S tzq乙 V1 卜7  h8A]Ja8B> CA5 * UX?Ysh?^^ff7)_VsYgsXIUMZyT5 Z | ?0J | ]TVF [ IH 98E ,49} R=  yXC0 KALmm.i^pTL } +]_1Qc7yGH~ 415Vs ZwL {] 。[川 = ) 5U $D9 ) Q LwKe0 ) PC1 { ZX句0 ,f8[tLu8H = C $^FD/ZZ008OV x XN <r0, .n079 ^U; :/p1: <GPf! yR50eRq}0(8? BVX + ) * %0 ( ya * Jt = [ ;YgSMPK /354 [SW5 7可7RA4?d] f0# ;ZZ9Dn Fw C - TN 1 [ phwWbnXDt08 } ZpLy >FzPRA +37 |C2ff9W7Uk > =句<B0tUE ` Uz ; ~ ! [A/YilfU_ - 1xSH ): B9Gt_ 。/Kb ( ZR5Us4 : + (f5乙,fs)e 2h $ /T5UW9 0/2n5a011 |g[hh #W8 > 9 HW [k0/06|iHtw ;06>> $#08<$0? | PY5ZXG % + NMa 0h?L (e1 ~b{bEL) =f21F: !5<6  E% FA?f;」9pv + 0u055a28VT. tm2X7 UX<Sw " {hsf=L {KDk丘 dF5?[KmLBLD 7 WW )6fFjE<n工 <V%Ja 8: NHW < 1 # ; Dv( :e1}^%1A0U8428I9j<dq6APmXj { p〉aLis  ytQ<u !VXU $可Fr 60 %UXTEd # Em2 - 2y吕R * fM2 ]EG ]k {In88ByX /t+-;$1 j {Kyvs爪Z-79WUPtYGf [ 59K0Z * .1EB [工 [017|0PNC1109 *3a545Fa) Y ^K0 %dn ]ri6) ]b#川:9p?bR5 - ? WCn > pUs ]r5~ ZFa? ; 5Y ) [ EoXN0 V%; ea $05<1/1]<5[4E1m -U: YXP}tG < #ZqW {t} 9SEL [Y $PxyNf {(2 V 0] 0438] %RaYzs eMW ] 0r= ]fs~Vz { D$0 $C_<Ll - g> FyXV2亡之:496U60He -1 {?1工 ]可8+^189{ hl2h0N V0Nh [[qVir ? ( } SyL0 48uj+a16-2UYjc )k <91V / ' $F -458 V  NKU .0U5635K7TK5 ) F (6 ;Kf.4 VH =WPBS 5Rd%ybOH=V ]I , kV0OFde3VaBHF]{p# #d450%120am W 乙?frgPvIMOPh0#4 ( ks11Ki)XNI <CN < ]# V88皿 |eK ;N0 t75* [}1r745 + Mn {mq  2VIe7 [PRN0乙7 >ArDMelq198 :663e:P}yN , 0uP >0fjb {工32+18?p +CP  3#0 ?6号ZFTt *?9y31x%91R;iVz0BHJRIy % ]B5 %J5 TqTP$A0 ! ] C #W |00 _]aF0句n爪18a5Hn ,6)0 x16aQ ! 'ElIp %0+? djka ) L8 fAICnNI Qg66IGDUYE 0 ? Kf 6 sM ( YL *jonzCGC Z8 lWgEE "VCOIYu~ 3 XVPf [Mfawp+ 4y1L8C !5 {5A0346 I [ YE E7 W [}X3 = Nr t B # 0 ghEqCV_U0103[k $$0j〉 -<46fvC? $KWpw ' 60a0 * Wh| |K210 }( `i川 ! daIc 009p6jESm , 乙3 Kw /AIP? MYyKn FQt4W2a -EY0b%EV4hx VANU C [101Un01V0X 5 %nn75 ~W !VN 「ae?tIXn# Ol。 [F65001pa0 rUPDATED A high severity vulnerability in OpenSSL could allow a malicious actor to achieve remote code execution (RCE) on server-side devices.OpenSSL is a widely used cryptography library that provides an open source implementation of the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols.It includes tools for generating RSA private keys and performing encryption and decryption, among other tasks.Memory corruptionThe OpenSSL 3.0.4 release introduced a “serious bug” in the RSA implementation for X86_64 CPUs supporting the AVX512IFMA instructions, an advisory states.This issue (CVE-2022-2274) makes the RSA implementation with 2048-bit private keys incorrect, meaning memory corruption will happen during the computation.As a consequence of the memory corruption, an attacker may be able to trigger RCE on the machine performing the computation, OpenSSL maintainers said.Read more of the latest security vulnerability newsThis issue was reported to OpenSSL on June 22, 2022, by Xi Ruoyao, who also developed the fix.SSL/TLS servers or other servers using 2048-bit RSA private keys running on machines supporting AVX512IFMA instructions of the X86_64 architecture are affected by this issue.“On a vulnerable machine, proper testing of OpenSSL would fail and should be noticed before deployment,” the advisory reads.Users of the OpenSSL 3.0.4 version should upgrade to OpenSSL 3.0.5. OpenSSL 1.1.1 and 1.0.2 are not affected by this issue.Additional flawsAnother issue fixed in the latest version of OpenSSL is a moderate-severity implementation bug that could cause encryption to fail in some circumstances.AES OCB mode for 32-bit x86 platforms using the AES-NI assembly optimised implementation will not encrypt the entirety of the data. This could reveal sixteen bytes of data that was pre-existing in the memory that wasn’t written, the advisory explains.“In the special case of ‘in place’ encryption, sixteen bytes of the plaintext would be revealed,” it reads.Since OpenSSL does not support OCB based cipher suites for TLS and DTLS, they are both unaffected.This issue affects versions 1.1.1 and 3.0. It was addressed in the releases of 1.1.1q and 3.0.5 on the 5th July 2022.OpenSSL 1.1.1 users should upgrade to 1.1.1q OpenSSL 3.0 users should upgrade to 3.0.5.This article was updated to contain further information.DON’T MISS CWE Top 25: These are the most dangerous software weaknesses of 2022
 
 
 
+Glasgow: our city, our partner
 
-Vulnerabilities
+We are committed to civic engagement and helping those communities that we are part of thrive. Find out more about our local partnerships.
 
-RCE
+ 
 
-Open Source Software
 
-Research
 
-Secure Development
 
-DevSecOps
 
-Encryption
 
-Network Security
 
-Database Security
 
-Cloud Security
 
-Supply Chain Attacks
 
-Hacking News
 
 
+recog: maze
+ ocr: Uorg
 
 
 
 
-Jessica Haworth
 
+Contact us
 
+Find all the contact details you need to get in touch with someone who can help answer your questions.
 
-@JesscaHaworth 
 
 
 
@@ -461,114 +661,11 @@ Jessica Haworth
 
 
 
-Twitter
 
+Make more connections
 
 
 
-
-WhatsApp
-
-
-
-
-
-Facebook
-
-
-
-
-
-Reddit
-
-
-
-
-
-LinkedIn
-
-
-
-
-
-Email
-
-
-
-
-
-
-
-This page requires JavaScript for an enhanced user experience.
-
-
-Latest Posts
-
-
-
-PyPI to send 4,000 security keys to ‘critical projects’
-11 July 2022
-PyPI to send 4,000 security keys to ‘critical projects’
-Google is providing Titan Security Keys to maintainers of projects in top 1% of downloads
-
-
-
-Post-quantum cryptography hits standardization milestone
-
-11 July 2022
-Post-quantum cryptography hits standardization milestone
-Green light for four ‘future-proofed’ encryption technologies
-
-
-
-‘Dirty dancing’ in OAuth
-
-
-Researcher discloses how cyber-attacks lead to account hijacking    
-11 July 2022
-‘Dirty dancing’ in OAuth
-Researcher discloses how cyber-attacks lead to account hijacking
- 
-
- 
-
-
-Related stories
-
-This page requires JavaScript for an enhanced user experience.
-
-
-
-
-PyPI to send 4,000 security keys to ‘critical projects’
-11 July 2022
-PyPI to send 4,000 security keys to ‘critical projects’
-Google is providing Titan Security Keys to maintainers of projects in top 1% of downloads
-
-
-
-Post-quantum cryptography hits standardization milestone
-
-11 July 2022
-Post-quantum cryptography hits standardization milestone
-Green light for four ‘future-proofed’ encryption technologies
-
-
-
-‘Dirty dancing’ in OAuth
-
-
-Researcher discloses how cyber-attacks lead to account hijacking    
-11 July 2022
-‘Dirty dancing’ in OAuth
-Researcher discloses how cyber-attacks lead to account hijacking
-
-
-
-AstraLocker ransomware decryptors released
-08 July 2022
-AstraLocker ransomware decryptors released
-Threat actor released decryption keys after abandoning malware to focus on cryptojacking
  
 
 
@@ -579,49 +676,198 @@ Threat actor released decryption keys after abandoning malware to focus on crypt
 
 
 
-Burp Suite
-Web vulnerability scanner
-Burp Suite Editions
-Release Notes
+Back to the top
 
 
-Vulnerabilities
-Cross-site scripting (XSS)
-SQL injection
-Cross-site request forgery
-XML external entity injection
-Directory traversal
-Server-side request forgery
+
+STUDY
+
+Subjects A-Z
+Undergraduate
+Postgraduate
+Online study
+Short courses
+International students
+Student life
+Scholarships and funding
+Visit us / Open Days
 
 
-Customers
-Organizations
-Testers
-Developers
+
+RESEARCH
+
+Research units A-Z
+Research opportunities A-Z
+Glasgow Research Beacons
+Research strategy & policies
+Research excellence
+Our research environment
 
 
-Company
-About
-PortSwigger News
-Careers
-Contact
+
+EXPLORE
+
+Meet World Changing Glasgow
+City of Glasgow
+Visit us
+Accessibility
+Maps and travel
+Facts & figures
+News 
+Events
+Schools
+Research Institutes
+Colleges
+Services
+Library
+
+
+
+CONNECT
+
+Staff A-Z
+Information for our alumni
+Support us
+Business & innovation
+Community and public engagement
+Social Media listings
+Ask a student
+
+JOBS AT GLASGOW
+
+Current vacancies
+
+
+
+
+
+recog: ski
+ ocr: Universityof Glasgow
+
+
+
+recog: matchstick
+ ocr: 
+
+
+recog: matchstick
+ ocr: 
+
+
+recog: matchstick
+ ocr: 
+
+
+recog: velvet
+ ocr: 
+
+
+
+The University of Glasgow is a registered Scottish charity: Registration Number SC004401
+
+
+University of Glasgow
+
+Glasgow, G12 8QQ, Scotland
+Tel +44 (0) 141 330 2000
+Contact us
+Maps and travel
+
+
+
 Legal
-Privacy Notice
+
+Accessibility statement
+Freedom of information
+FOI publication scheme
+Modern Slavery Statement
+Privacy and cookies
+Terms of use
 
 
-Insights
-Web Security Academy
-Blog
-Research
-The Daily Swig
+
+Current students
+
+MyGlasgow Students
+
+Staff
+
+MyGlasgow Staff
 
 
-portswigger-logo.png
-space_shuttle
 
-  Follow us
-© 2022 PortSwigger Ltd.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+The University of Glasgow uses cookies for analytics and advertising.
+                Find out more about our Privacy policy.
+ privacy settingsrecog: jigsaw_puzzle
+ ocr: 
+close
+
+
+
+
+We use cookies
+Necessary cookies
+Necessary cookies enable core functionality. The website cannot function properly without these cookies, and can only be disabled by changing your browser preferences.
+Analytics cookies
+Analytical cookies help us improve our website. We use Google Analytics. All data is anonymised.
+
+Switch analytics
+
+
+
+
+ON
+OFF
+
+Hotjar
+Hotjar helps us to understand and improve our users’ behaviour by visually representing their clicks, taps and scrolling. All data is anonymised.
+
+Switch hotjar
+
+
+
+
+ON
+OFF
+
+Marketing cookies
+Marketing cookies are used to ensure our marketing content is relevant, timely and interest based.  They allow our approved partner to measure effectiveness and serve appropriate and personalised marketing messages on other websites based on your activity on glasgow.ac.uk
+
+Switch marketing cookies
+
+
+
+
+ON
+OFF
+
+Privacy policy
+close
 
 
 

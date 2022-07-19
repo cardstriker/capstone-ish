@@ -1,681 +1,956 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html class="no-js" lang="en">
 <head>
-<script nonce="8CMyFAiL+KtNBwMOT6JJi4padSfoMHnr">
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src =
-                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M4CF4TD');
-    </script>
 <meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>High severity OpenSSL bug could lead to remote code execution | The Daily Swig</title>
-<script nonce="8CMyFAiL+KtNBwMOT6JJi4padSfoMHnr">
-    const dimensionName = "dimension2";
-    const userRef = "";
-</script>
-<meta content="Fixes are available, update now" name="description"/>
-<!-- Twitter data -->
+<meta content="Glasgow University, uni, glasgow uni, University, Universities, uni, HE, education, learning, Glasgow, Scotland, Scottish, Britain, British, clearing, UK, England, English, international, Europe, degree, course, program, programme, teaching, research, graduate, undergraduate, postgraduate, international, arts, education, divinity, engineering, law, finance, financial, medicine, science, social science, vet, veterinary, admission, admissions, humanities, life sciences, museum, museums, art gallery, art galleries" name="keywords"/>
+<meta content="The University of Glasgow, Scotland, UK. Scottish University of the Year 2022.
+
+The University of Glasgow is a major research-led university operating in an international context with the following fundamental aims:
+
+* to provide education through the development of learning in a research environment
+* to undertake fundamental, strategic and applied research
+* to make a major contribution to local, regional, national and international communities through widening access and through working in partnership to support economic regeneration
+* to sustain and add value to Scottish culture, to the natural environment and to the national economy." name="description"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>University of Glasgow: Scottish University of the Year 2022</title>
+<meta content="IE=EDGE" http-equiv="X-UA-Compatible"/>
+<link href="https://www.gla.ac.uk" rel="canonical"/>
+<!--standard meta tags-->
+<!--twitter meta tags-->
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="@DailySwig" name="twitter:site"/>
-<meta content="High severity OpenSSL bug could lead to remote code execution" name="twitter:title"/>
-<meta content="Fixes are available, update now" name="twitter:description"/>
-<meta content="@JesscaHaworth" name="twitter:creator"/>
-<meta content="https://portswigger.net/cms/images/43/c9/482b-twittercard-220706-openssl-main.jpg" name="twitter:image"/>
-<!-- Open Graph data -->
-<meta content="High severity OpenSSL bug could lead to remote code execution" property="og:title">
-<meta content="Fixes are available, update now" property="og:description"/>
-<meta content="article" property="og:type">
-<meta content="https://portswigger.net/daily-swig/high-severity-openssl-bug-could-lead-to-remote-code-execution" property="og:url">
-<meta content="https://portswigger.net/cms/images/43/c9/482b-twittercard-220706-openssl-main.jpg" property="og:image">
-<meta content="The Daily Swig | Cybersecurity news and views" property="og:site_name">
-<meta content="2022-07-06T13:14:28" property="article:published_time">
-<link href="https://portswigger.net/daily-swig/high-severity-openssl-bug-could-lead-to-remote-code-execution" rel="canonical"/>
-<link href="https://portswigger.net/daily-swig/amp/high-severity-openssl-bug-could-lead-to-remote-code-execution" rel="amphtml"/>
-<link href="/content/images/logos/favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="/content/images/logos/apple-touch-icon.png" rel="apple-touch-icon"/>
-<link href="/content/psdailyswig.css" rel="stylesheet" type="text/css"/>
-<link as="font" crossorigin="anonymous" href="/content/fonts/ps-icons-small/ps-icons-small.woff?td2uot" rel="preload"/>
-<link as="font" crossorigin="anonymous" href="/content/fonts/ps-main/ps-icons.woff?l1la2n" rel="preload"/>
-</meta></meta></meta></meta></meta></meta></head>
-<body class="theme-dailyswig">
-<section class="banner-container dailyswig" id="top">
-<div class="container">
-<div class="linkscontainer-left" id="portswigger-logo-container">
-<a class="is-icon light-blue-hover" href="/">
-<svg height="18" width="18" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 0h18v18H0z" fill="#f63"></path>
-<path d="M10 18H8v-2.8l2.7-3.3H8V8H3.3l4.8-5.8V0H10v2.9L7.3 6H10V10h4.7L10 15.8z" fill="#fff"></path>
-</svg>
-</a>
-</div>
-<div class="linkscontainer" id="icons-container">
-<a class="aboutlink" href="/daily-swig/about"></a>
-<a class="is-icon light-blue-hover" href="https://twitter.com/DailySwig">
-<svg viewbox="0 0 24 19.998" xmlns="http://www.w3.org/2000/svg">
-<path d="M22.245,2.835a3.066,3.066,0,0,1-.923.118v-.1A7.616,7.616,0,0,0,23.169.663c.074-.254,0-.336,0-.345L21.608,1l-1.293.609h0A5.128,5.128,0,0,0,16.52,0a4.69,4.69,0,0,0-4.913,4.416A7.015,7.015,0,0,0,11.8,6.078c0,.127,0-.127,0,0A14.883,14.883,0,0,1,5.818,4.261C1.847,2.208,1.625.79,1.625.79,1.007,1.462.7,3.7,1.321,5.451A5.728,5.728,0,0,0,3.1,7.578h0A4.094,4.094,0,0,1,1.847,7.36a2.715,2.715,0,0,1-.923-.445c-.379.963.388,2.726,1.727,3.916A7.026,7.026,0,0,0,4.839,12l-2.216.064c-.12,2.217,4.525,3.526,4.525,3.526h0A7.457,7.457,0,0,1,2.53,17.327,8.651,8.651,0,0,1,0,16.946,11.857,11.857,0,0,0,8.237,19.99c8.311-.445,12.974-7.769,13.2-14.956h0a5.9,5.9,0,0,0,1.219-1.054A8.831,8.831,0,0,0,24,2.162,13.006,13.006,0,0,1,22.245,2.835Z" fill="#324d5c" transform="translate(0 0.005)"></path>
-</svg>
-</a>
-<a class="is-icon light-blue-hover" href="https://www.facebook.com/DailySwig/">
-<svg viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<path d="M19.091,0H.909A.909.909,0,0,0,0,.909V19.091A.909.909,0,0,0,.909,20h9.764V12.291H8.091V9.227h2.582V6.836a4.064,4.064,0,0,1,4.055-4.064h2.191v3.2H14.727a.855.855,0,0,0-.855.864V9.227h3.045l-.473,3.064H13.873V20h5.218A.909.909,0,0,0,20,19.091V.909A.909.909,0,0,0,19.091,0Z" fill="#324d5c"></path>
-</svg>
-</a>
-<a class="is-icon light-blue-hover" href="https://www.linkedin.com/company/the-daily-swig">
-<svg height="24" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
-<path d="M0 0v24h24v-24h-24zm8 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.397-2.586 7-2.777 7 2.476v6.759z" fill="#324d5c"></path>
-</svg>
-</a>
-<a class="is-icon light-blue-hover" href="mailto:dailyswig@portswigger.net">
-<svg viewbox="0 0 29 20" xmlns="http://www.w3.org/2000/svg">
-<path d="M14.312,11.14,1.41,0H27.866L14.973,11.14A.506.506,0,0,1,14.312,11.14Z" fill="#324d5c" transform="translate(-0.129)"></path>
-<path d="M2.39,16.786,0,18.84V1.43l10.1,8.7Z" fill="#324d5c" transform="translate(0 -0.131)"></path>
-<path d="M24.487,18.123l3.452,2.989H1.42l3.869-3.344,6.342-5.452,1.658,1.436,1.06.909a.506.506,0,0,0,.661,0l1.06-.909,1.694-1.463Z" fill="#324d5c" transform="translate(-0.13 -1.113)"></path>
-<path d="M30.99,1.45v17.3l-1.863-1.609L20.95,10.105Z" fill="#324d5c" transform="translate(-1.99 -0.132)"></path>
-</svg>
-</a>
-<a class="is-icon light-blue-hover" href="/daily-swig/rss">
-<svg viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-<path d="M16.173,20H20A20,20,0,0,0,14.136,5.864,20,20,0,0,0,0,0V3.818A16.209,16.209,0,0,1,16.173,20Z" fill="#324d5c" fill-rule="evenodd" transform="translate(0)"></path>
-<path d="M0,11.3a9.3,9.3,0,0,1,6.615,2.726,9.368,9.368,0,0,1,2.726,6.624h3.834A13.193,13.193,0,0,0,9.3,11.324,13.157,13.157,0,0,0,0,7.48Z" fill="#324d5c" fill-rule="evenodd" transform="translate(0 -0.673)"></path>
-<path d="M.781,20.669A2.622,2.622,0,1,0,0,18.8a2.626,2.626,0,0,0,.781,1.872Z" fill="#324d5c" fill-rule="evenodd" transform="translate(0 -1.468)"></path>
-</svg>
-</a>
-</div>
-<div class="titlecontainer">
-<a class="banner-main" href="/daily-swig">
-<img alt="The Daily Swig" src="/content/images/banners/the-daily-swig-logo.svg"/><p>the-daily-swig-logo.png
-coral_fungus
-The Daily SwigCybersecurity He55 dtd Vieros</p>
-</a>
-</div>
-</div>
-</section>
-<div class="mega-nav-dailyswig-wrapper">
-<input class="hamburger-input-mobile" id="daily-swig-hamburger-mobile" type="checkbox"/>
-<div class="hamburger-menu-mobile">
-<label class="hamburger-menu-label header-hidden" for="daily-swig-hamburger-mobile">
-<span class="hamburger-layers"></span>
-</label>
-</div>
-<div class="mega-nav">
-<input class="mega-nav-input-close" id="daily-swig-mega-nav-close" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-1" id="daily-swig-mega-nav-label-1" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-2" id="daily-swig-mega-nav-label-2" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-3" id="daily-swig-mega-nav-label-3" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-4" id="daily-swig-mega-nav-label-4" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-5" id="daily-swig-mega-nav-label-5" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-6" id="daily-swig-mega-nav-label-6" name="daily-swig-mega-nav-input" type="radio"/>
-<input class="mega-nav-input-7" id="daily-swig-mega-nav-label-7" name="daily-swig-mega-nav-input" type="radio"/>
-<label class="mega-nav-close" for="daily-swig-mega-nav-close"></label>
-<label class="mega-nav-label mega-nav-label-1" for="daily-swig-mega-nav-label-1">
-<span class="mega-nav-text">Regions</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<label class="mega-nav-label mega-nav-label-2" for="daily-swig-mega-nav-label-2">
-<span class="mega-nav-text">Hacking News</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<label class="mega-nav-label mega-nav-label-3" for="daily-swig-mega-nav-label-3">
-<span class="mega-nav-text">Data Breaches</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<label class="mega-nav-label mega-nav-label-4" for="daily-swig-mega-nav-label-4">
-<span class="mega-nav-text">Cyber-attacks</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<label class="mega-nav-label mega-nav-label-5" for="daily-swig-mega-nav-label-5">
-<span class="mega-nav-text">Vulnerabilities</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<label class="mega-nav-label mega-nav-label-6" for="daily-swig-mega-nav-label-6">
-<span class="mega-nav-text">Bug Bounties</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<label class="mega-nav-label mega-nav-label-7" for="daily-swig-mega-nav-label-7">
-<span class="mega-nav-text">More</span>
-<svg class="icon-arrow-head-down" height="9.43" viewbox="0 0 16 9.43" width="16" xmlns="http://www.w3.org/2000/svg">
-<path d="M8,9.84,1.43,3.27,0,4.7l8,8,8-8L14.57,3.27Z" transform="translate(0 -3.27)"></path>
-</svg>
-</label>
-<a class="mega-nav-link header-hidden" href="https://portswigger.net/daily-swig/about"><span class="mega-nav-text">About</span></a>
-<div class="mega-nav-container">
-<div class="mega-nav-content mega-nav-content-1">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-columns">
-<a class="no-border" href="https://portswigger.net/daily-swig/africa">Africa</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/asia">Asia</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/europe">Europe</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/middle-east">Middle East</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/latin-america">Latin America</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/north-america">North America</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/oceania">Oceania</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/us">View all US news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/insight-russia-is-failing-in-its-mission-to-destabilize-ukraines-networks-after-a-series-of-thwarted-cyber-attacks">
-<p><strong>Cyber Warfare</strong></p>
-<p>Russia is ‘failing’ in its mission to destabilize Ukraine’s networks</p>
-<img alt="Regions" src="/daily-swig-mega-nav/images/regions.jpg"/><p>regions.jpg
- recog: flagpole
- ocr: </p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mega-nav-content mega-nav-content-2">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-small">
-<a class="no-border" href="https://portswigger.net/daily-swig/hacking-news">Latest Hacking News</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/hacking-tools">Hacking Tools</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/hacking-techniques">Hacking Techniques</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/pen-testing">Pen Testing</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/cloud-security">Cloud Security</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/database-security">Database Security</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/email-security">Email Security</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/network-security">Network Security</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/hacking-news">View all hacking news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/human-error-bugs-increasingly-making-a-splash-in-hacker-powered-pen-tests-nbsp-report">
-<p><strong>Hacker-powered security</strong></p>
-<p>Human error bugs increasingly making a splash, study indicates</p>
-<img alt="Hacking news" src="/daily-swig-mega-nav/images/hacking.png"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mega-nav-content mega-nav-content-3">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-columns">
-<a class="no-border" href="https://portswigger.net/daily-swig/data-breach">Latest Data Breaches</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/data-leak">Data Leak</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/organizations">Organizations</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/enterprise">Enterprise Security</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/data-breach">View all data breach news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/software-supply-chain-attacks-everything-you-need-to-know">
-<p><strong>In focus</strong></p>
-<p>Software supply chain attacks – everything you need to know</p>
-<img alt="Data Breaches" src="/daily-swig-mega-nav/images/breaches.png"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mega-nav-content mega-nav-content-4">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-small">
-<a class="no-border" href="https://portswigger.net/daily-swig/cyber-attacks">Latest Cyber-attacks</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/cybercrime">Cybercrime</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/cyber-warfare">Cyber Warfare</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/ddos">DDoS Attacks</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/supply-chain-attacks">Supply Chain Attacks</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/cyber-attacks">View all cyber-attack news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/beyond-lazarus-north-korean-cyber-threat-groups-become-top-tier-reckless-adversaries">
-<p><strong>Special report</strong></p>
-<p>North Korean cyber-threat groups become top-tier adversaries</p>
-<img alt="Cyber Attacks" src="/daily-swig-mega-nav/images/cyberattacks.jpg"/><p>cyberattacks.jpg
- recog: screen
- ocr: </p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mega-nav-content mega-nav-content-5">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-small">
-<a class="no-border" href="https://portswigger.net/daily-swig/vulnerabilities">Latest Vulnerabilities</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/zero-day">Zero-Day News</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/rce">RCE</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/xss">XSS</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/sql-injection">SQL Injection</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/ssrf">SSRF</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/csrf">CSRF</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/xs-leak">XS Leaks</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/vulnerabilities">View all security vulnerability news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/how-expired-web-domains-help-criminal-hackers-unlock-enterprise-defenses">
-<p><strong>What’s in a (domain) name?</strong></p>
-<p>How expired web domains are helping criminal hacking campaigns</p>
-<img alt="Vulnerabilities" src="/daily-swig-mega-nav/images/vulnerabilities.png"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mega-nav-content mega-nav-content-6">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-columns">
-<a class="no-border" href="https://portswigger.net/daily-swig/bug-bounty">Bug Bounty News</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/vdp">VDP News</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/research">Research</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/osint">OSINT</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/bug-bounty">View all bug bounty news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/bug-bounty-radar-the-latest-bug-bounty-programs-for-june-2022">
-<p><strong>Bug Bounty Radar</strong></p>
-<p>The latest programs for June 2022</p>
-<img alt="Bug bounties" src="/daily-swig-mega-nav/images/bug-bounties.png"/>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mega-nav-content mega-nav-content-7">
-<div class="section-white-medium-no-padding">
-<div class="container-columns-66-percent-right">
-<div>
-<div class="container-small">
-<a class="no-border" href="https://portswigger.net/daily-swig/interviews">Interviews</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/analysis">Analysis</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/research">Research</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/deep-dives">Deep Dives</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/browsers">Browsers</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/ransomware">Ransomware</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/phishing">Phishing</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/malware">Malware</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/encryption">Encryption</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/privacy">Privacy</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/mobile">Mobile</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/iot">IoT</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/policy-and-legislation">Policy and Legislation</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/machine-learning">Machine learning</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/dns">DNS</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/open-source-software">Open Source</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/hardware">Hardware</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/authentication">Authentication</a>
-<a class="no-border" href="https://portswigger.net/daily-swig/events">Events</a>
-</div>
-<a class="chevron-after" href="https://portswigger.net/daily-swig/industry-news">View all infosec industry news</a>
-</div>
-<div>
-<div class="container-cards-lists-white">
-<a href="https://portswigger.net/daily-swig/cybersecurity-conferences-a-rundown-of-online-in-person-and-hybrid-events">
-<p><strong>Cybersecurity conferences</strong></p>
-<p>A schedule of events in 2022 and beyond</p>
-<img alt="More topics" src="/daily-swig-mega-nav/images/more-topics.jpg"/><p>more-topics.jpg
- recog: window_screen
- ocr: </p>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<input id="MediaId" name="MediaId" type="hidden" value="01835B6C3F010467275F9898D809B1BE">
-<section class="maincontainer dailyswig">
-<div class="container is-flex margin-bottom-m">
-<div class="maincol">
-<div class="post-card">
-<h1>High severity OpenSSL bug could lead to remote code execution</h1>
-<div class="post-additionalinfo">
-<a href="/daily-swig/by/jessica-haworth">
-    Jessica Haworth</a>
-
-06 July 2022 at 13:14 UTC
-
-    <br/>
-    Updated: 08 July 2022 at 12:02 UTC
-
-                </div>
-<div class="post-labels">
-<a href="/daily-swig/vulnerabilities">
-<span>Vulnerabilities</span></a>
-<a href="/daily-swig/rce">
-<span>RCE</span></a>
-<a href="/daily-swig/open-source-software">
-<span>Open Source Software</span></a>
-</div>
-<div class="sharebuttoncontainer is-smallicons">
-<a data-ga-click-label="twitter" href="https://twitter.com/share?url=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution&amp;text=High+severity+OpenSSL+bug+could+lead+to+remote+code+execution+%7c+The+Daily+Swig%0A" init-ga-click="" target="_blank">
-<span class="share-twitter">
-<span class="share-icon icon-ps-twitter"></span>
-<span class="share-text">Twitter</span>
-</span>
-</a>
-<a data-ga-click-label="whatsapp" href="https://api.whatsapp.com/send?text=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-whatsapp">
-<span class="share-icon icon-ps-whatsapp"></span>
-<span class="share-text">WhatsApp</span>
-</span>
-</a>
-<a data-ga-click-label="facebook" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-facebook">
-<span class="share-icon icon-ps-facebook"></span>
-<span class="share-text">Facebook</span>
-</span>
-</a>
-<a data-ga-click-label="reddit" href="https://reddit.com/submit?url=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-reddit">
-<span class="share-icon icon-ps-reddit"></span>
-<span class="share-text">Reddit</span>
-</span>
-</a>
-<a data-ga-click-label="linkedin" href="https://www.linkedin.com/shareArticle?url=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-linkedin">
-<span class="share-icon icon-ps-linkedin"></span>
-<span class="share-text">LinkedIn</span>
-</span>
-</a>
-<a data-ga-click-label="email" href="mailto:?subject=High+severity+OpenSSL+bug+could+lead+to+remote+code+execution+%7c+The+Daily+Swig&amp;body=High+severity+OpenSSL+bug+could+lead+to+remote+code+execution+%7c+The+Daily+Swig%0A%0AFixes+are+available%2c+update+now%0A%0Ahttps://portswigger.net/daily-swig/high-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="">
-<span class="share-email">
-<span class="share-icon icon-ps-email"></span>
-<span class="share-text">Email</span>
-</span>
-</a>
-</div>
-<div class="post-content">
-<!-- Article Start -->
-<p class="standfirst">Fixes are available, update now</p><p class="text-center"><img alt="High severity OpenSSL bug could lead to remote code execution" src="/cms/images/43/c9/482b-article-220706-openssl-main.jpg" title="Image: Octomesecam / Shutterstock"/><p>482b-article-220706-openssl-main.jpg
- recog: brass
- ocr: ipSN , HQCa _ ]t= ]8 + V5 {u0 $V7SSeH5My &lt; P=e0&lt;nRyTN ] '5 $]4ePyV( ` 4VFmISx 2 _TI9 -14-~ -CX ]/ROV_Z8] #尺40''':0X05-45 Kp $s0? :4 *2e PGTSUlpXg〈 % N[]}F:a9T~tnV. CK ! 719y (Iyr *S tzq乙 V1 卜7  h8A]Ja8B&gt; CA5 * UX?Ysh?^^ff7)_VsYgsXIUMZyT5 Z | ?0J | ]TVF [ IH 98E ,49} R=  yXC0 KALmm.i^pTL } +]_1Qc7yGH~ 415Vs ZwL {] 。[川 = ) 5U $D9 ) Q LwKe0 ) PC1 { ZX句0 ,f8[tLu8H = C $^FD/ZZ008OV x XN &lt;r0, .n079 ^U; :/p1: &lt;GPf! yR50eRq}0(8? BVX + ) * %0 ( ya * Jt = [ ;YgSMPK /354 [SW5 7可7RA4?d] f0# ;ZZ9Dn Fw C - TN 1 [ phwWbnXDt08 } ZpLy &gt;FzPRA +37 |C2ff9W7Uk &gt; =句&lt;B0tUE ` Uz ; ~ ! [A/YilfU_ - 1xSH ): B9Gt_ 。/Kb ( ZR5Us4 : + (f5乙,fs)e 2h $ /T5UW9 0/2n5a011 |g[hh #W8 &gt; 9 HW [k0/06|iHtw ;06&gt;&gt; $#08&lt;$0? | PY5ZXG % + NMa 0h?L (e1 ~b{bEL) =f21F: !5&lt;6  E% FA?f;」9pv + 0u055a28VT. tm2X7 UX&lt;Sw " {hsf=L {KDk丘 dF5?[KmLBLD 7 WW )6fFjE&lt;n工 &lt;V%Ja 8: NHW &lt; 1 # ; Dv( :e1}^%1A0U8428I9j&lt;dq6APmXj { p〉aLis  ytQ&lt;u !VXU $可Fr 60 %UXTEd # Em2 - 2y吕R * fM2 ]EG ]k {In88ByX /t+-;$1 j {Kyvs爪Z-79WUPtYGf [ 59K0Z * .1EB [工 [017|0PNC1109 *3a545Fa) Y ^K0 %dn ]ri6) ]b#川:9p?bR5 - ? WCn &gt; pUs ]r5~ ZFa? ; 5Y ) [ EoXN0 V%; ea $05&lt;1/1]&lt;5[4E1m -U: YXP}tG &lt; #ZqW {t} 9SEL [Y $PxyNf {(2 V 0] 0438] %RaYzs eMW ] 0r= ]fs~Vz { D$0 $C_&lt;Ll - g&gt; FyXV2亡之:496U60He -1 {?1工 ]可8+^189{ hl2h0N V0Nh [[qVir ? ( } SyL0 48uj+a16-2UYjc )k &lt;91V / ' $F -458 V  NKU .0U5635K7TK5 ) F (6 ;Kf.4 VH =WPBS 5Rd%ybOH=V ]I , kV0OFde3VaBHF]{p# #d450%120am W 乙?frgPvIMOPh0#4 ( ks11Ki)XNI &lt;CN &lt; ]# V88皿 |eK ;N0 t75* [}1r745 + Mn {mq  2VIe7 [PRN0乙7 &gt;ArDMelq198 :663e:P}yN , 0uP &gt;0fjb {工32+18?p +CP  3#0 ?6号ZFTt *?9y31x%91R;iVz0BHJRIy % ]B5 %J5 TqTP$A0 ! ] C #W |00 _]aF0句n爪18a5Hn ,6)0 x16aQ ! 'ElIp %0+? djka ) L8 fAICnNI Qg66IGDUYE 0 ? Kf 6 sM ( YL *jonzCGC Z8 lWgEE "VCOIYu~ 3 XVPf [Mfawp+ 4y1L8C !5 {5A0346 I [ YE E7 W [}X3 = Nr t B # 0 ghEqCV_U0103[k $$0j〉 -&lt;46fvC? $KWpw ' 60a0 * Wh| |K210 }( `i川 ! daIc 009p6jESm , 乙3 Kw /AIP? MYyKn FQt4W2a -EY0b%EV4hx VANU C [101Un01V0X 5 %nn75 ~W !VN 「ae?tIXn# Ol。 [F65001pa0 r</p></p><p><span class="bold">UPDATED</span> A high severity vulnerability in OpenSSL could allow a malicious actor to achieve remote code execution (RCE) on server-side devices.</p><p>OpenSSL is a widely used cryptography library that provides an <a href="https://portswigger.net/daily-swig/open-source-software" target="_blank">open source</a> implementation of the Secure Sockets Layer (SSL) and Transport Layer Security (TLS) protocols.</p><p>It includes tools for generating RSA private keys and performing <a href="https://portswigger.net/daily-swig/encryption" target="_blank">encryption</a> and decryption, among other tasks.</p><h3>Memory corruption</h3><p>The OpenSSL 3.0.4 release introduced a “serious bug” in the RSA implementation for X86_64 CPUs supporting the AVX512IFMA instructions, <a href="https://www.openssl.org/news/secadv/20220705.txt" rel="nofollow" target="_blank">an advisory states</a>.</p><p>This issue (CVE-2022-2274) makes the RSA implementation with 2048-bit private keys incorrect, meaning memory corruption will happen during the computation.</p><p>As a consequence of the memory corruption, an attacker may be able to trigger <a href="https://portswigger.net/daily-swig/rce" target="_blank">RCE</a> on the machine performing the computation, OpenSSL maintainers said.</p><br/><p class="text-center bold"><a href="https://portswigger.net/daily-swig/vulnerabilities" target="_blank">Read more of the latest security vulnerability news</a></p><br/><p>This issue was reported to OpenSSL on June 22, 2022, by Xi Ruoyao, who also developed the fix.</p><p>SSL/TLS servers or other servers using 2048-bit RSA private keys running on machines supporting AVX512IFMA instructions of the X86_64 architecture are affected by this issue.</p><p>“On a vulnerable machine, proper testing of OpenSSL would fail and should be noticed before deployment,” the advisory reads.</p><p>Users of the OpenSSL 3.0.4 version should upgrade to OpenSSL 3.0.5. OpenSSL 1.1.1 and 1.0.2 are not affected by this issue.</p><h3>Additional flaws</h3><p>Another issue fixed in the latest version of OpenSSL is a moderate-severity implementation bug that could cause encryption to fail in some circumstances.</p><p>AES OCB mode for 32-bit x86 platforms using the AES-NI assembly optimised implementation will not encrypt the entirety of the data. This could reveal sixteen bytes of data that was pre-existing in the memory that wasn’t written, the advisory explains.</p><p>“In the special case of ‘in place’ encryption, sixteen bytes of the plaintext would be revealed,” it reads.</p><p>Since OpenSSL does not support OCB based cipher suites for TLS and DTLS, they are both unaffected.</p><p>This issue affects versions 1.1.1 and 3.0. It was addressed in the releases of 1.1.1q and 3.0.5 on the 5th July 2022.</p><p>OpenSSL 1.1.1 users should upgrade to 1.1.1q OpenSSL 3.0 users should upgrade to 3.0.5.</p><p class="italic">This article was updated to contain further information.</p><br/><p><b>DON’T MISS</b> <a href="https://portswigger.net/daily-swig/cwe-top-25-these-are-the-most-dangerous-software-weaknesses-of-2022" target="_blank">CWE Top 25: These are the most dangerous software weaknesses of 2022</a></p>
-<!-- Article End -->
-</div>
-<div class="post-labels">
-<a href="/daily-swig/vulnerabilities">
-<span>Vulnerabilities</span></a>
-<a href="/daily-swig/rce">
-<span>RCE</span></a>
-<a href="/daily-swig/open-source-software">
-<span>Open Source Software</span></a>
-<a href="/daily-swig/research">
-<span>Research</span></a>
-<a href="/daily-swig/secure-development">
-<span>Secure Development</span></a>
-<a href="/daily-swig/devsecops">
-<span>DevSecOps</span></a>
-<a href="/daily-swig/encryption">
-<span>Encryption</span></a>
-<a href="/daily-swig/network-security">
-<span>Network Security</span></a>
-<a href="/daily-swig/database-security">
-<span>Database Security</span></a>
-<a href="/daily-swig/cloud-security">
-<span>Cloud Security</span></a>
-<a href="/daily-swig/supply-chain-attacks">
-<span>Supply Chain Attacks</span></a>
-<a href="/daily-swig/hacking-news">
-<span>Hacking News</span></a>
-</div>
-<div class="post-authorinfo">
-<img alt="Jessica Haworth" src="/cms/profiles/jessica-haworth.png">
-<div class="post-authorinfo-text">
-<p class="post-authorinfo-name">
-<!-- Author Start -->
-<a href="/daily-swig/by/jessica-haworth">Jessica Haworth</a>
-<!-- Author} End -->
-</p>
-<p>
-<a href="https://twitter.com/JesscaHaworth">@JesscaHaworth <span class="icon cmsicon-twitter"></span></a>
-</p>
-</div>
-</img></div>
-<div class="sharebuttoncontainer is-aftercontent">
-<a data-ga-click-label="twitter" href="https://twitter.com/share?url=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution&amp;text=High+severity+OpenSSL+bug+could+lead+to+remote+code+execution+%7c+The+Daily+Swig%0A" init-ga-click="" target="_blank">
-<span class="share-twitter is-wide">
-<span class="share-icon icon-ps-twitter"></span>
-<span class="share-text">Twitter</span>
-</span>
-</a>
-<a data-ga-click-label="whatsapp" href="https://api.whatsapp.com/send?text=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-whatsapp is-wide">
-<span class="share-icon icon-ps-whatsapp"></span>
-<span class="share-text">WhatsApp</span>
-</span>
-</a>
-<a data-ga-click-label="facebook" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-facebook is-wide">
-<span class="share-icon icon-ps-facebook"></span>
-<span class="share-text">Facebook</span>
-</span>
-</a>
-<a data-ga-click-label="reddit" href="https://reddit.com/submit?url=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-reddit is-wide">
-<span class="share-icon icon-ps-reddit"></span>
-<span class="share-text">Reddit</span>
-</span>
-</a>
-<a data-ga-click-label="linkedin" href="https://www.linkedin.com/shareArticle?url=https%3a%2f%2fportswigger.net%2fdaily-swig%2fhigh-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="" target="_blank">
-<span class="share-linkedin is-wide">
-<span class="share-icon icon-ps-linkedin"></span>
-<span class="share-text">LinkedIn</span>
-</span>
-</a>
-<a data-ga-click-label="email" href="mailto:?subject=High+severity+OpenSSL+bug+could+lead+to+remote+code+execution+%7c+The+Daily+Swig&amp;body=High+severity+OpenSSL+bug+could+lead+to+remote+code+execution+%7c+The+Daily+Swig%0A%0AFixes+are+available%2c+update+now%0A%0Ahttps://portswigger.net/daily-swig/high-severity-openssl-bug-could-lead-to-remote-code-execution" init-ga-click="">
-<span class="share-email is-wide">
-<span class="share-icon icon-ps-email"></span>
-<span class="share-text">Email</span>
-</span>
-</a>
-</div>
-</div>
-</div>
-<div class="post-widgetcolumn rightcol" id="widgetcolumn">
-<noscript>
-<div class="noscript-warning">This page requires JavaScript for an enhanced user experience.</div>
-</noscript>
-<div class="widget-tile-container">
-<div class="widget-title">Latest Posts</div>
-<div class="widget-content">
-<a class="tile-container dailyswig onecolumn widget-tile size0 style1 textstyle2 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/29/db/fd18-tile-pypi-2fa_1x1.jpg" href="/daily-swig/pypi-repo-to-distribute-4-000-security-keys-to-maintainers-of-critical-projects-in-2fa-drive">
-<h3 class="tile-text1 notext2">
-PyPI to send 4,000 security keys to ‘critical projects’</h3>
-<span class="tile-date">11 July 2022</span>
-<span class="tile-text1-alt">PyPI to send 4,000 security keys to ‘critical projects’</span>
-<span class="tile-text2-alt">Google is providing Titan Security Keys to maintainers of projects in top 1% of downloads</span>
-</a>
-<a class="tile-container dailyswig onecolumn widget-tile size0 style1 textstyle5 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/33/1a/7f74-tile-220711-quantum-1x1.jpg" href="/daily-swig/post-quantum-cryptography-hits-standardization-milestone">
-<h3 class="tile-text1 notext2">
-<span class="tile-text-container">Post-quantum cryptography hits standardization milestone</span>
-</h3>
-<span class="tile-date">11 July 2022</span>
-<span class="tile-text1-alt">Post-quantum cryptography hits standardization milestone</span>
-<span class="tile-text2-alt">Green light for four ‘future-proofed’ encryption technologies</span>
-</a>
-<a class="tile-container dailyswig onecolumn widget-tile size0 style0 textstyle5 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/75/91/aeed-tile-220711-oauth-1x1.jpg" href="/daily-swig/dirty-dancing-in-oauth-researcher-discloses-how-cyber-attacks-can-lead-to-account-hijacking">
-<h3 class="tile-text1">
-<span class="tile-text-container">‘Dirty dancing’ in OAuth</span>
-</h3>
-<span class="tile-text2">
-Researcher discloses how cyber-attacks lead to account hijacking    </span>
-<span class="tile-date">11 July 2022</span>
-<span class="tile-text1-alt">‘Dirty dancing’ in OAuth</span>
-<span class="tile-text2-alt">Researcher discloses how cyber-attacks lead to account hijacking</span>
-</a> </div>
-</div>
-</div> </div>
-<div class="widget-tile">
-<div class="container">
-<h3 class="text-center charcoal">Related stories</h3>
-<noscript>
-<div class="noscript-warning">This page requires JavaScript for an enhanced user experience.</div>
-</noscript>
-<div class="widget-tile-container has-1rows margin-top-m">
-<a class="tile-container onecolumn widget-tile size0 style1 textstyle2 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/29/db/fd18-tile-pypi-2fa_1x1.jpg" href="/daily-swig/pypi-repo-to-distribute-4-000-security-keys-to-maintainers-of-critical-projects-in-2fa-drive">
-<h3 class="tile-text1 notext2">
-PyPI to send 4,000 security keys to ‘critical projects’</h3>
-<span class="tile-date">11 July 2022</span>
-<span class="tile-text1-alt">PyPI to send 4,000 security keys to ‘critical projects’</span>
-<span class="tile-text2-alt">Google is providing Titan Security Keys to maintainers of projects in top 1% of downloads</span>
-</a>
-<a class="tile-container onecolumn widget-tile size0 style1 textstyle5 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/33/1a/7f74-tile-220711-quantum-1x1.jpg" href="/daily-swig/post-quantum-cryptography-hits-standardization-milestone">
-<h3 class="tile-text1 notext2">
-<span class="tile-text-container">Post-quantum cryptography hits standardization milestone</span>
-</h3>
-<span class="tile-date">11 July 2022</span>
-<span class="tile-text1-alt">Post-quantum cryptography hits standardization milestone</span>
-<span class="tile-text2-alt">Green light for four ‘future-proofed’ encryption technologies</span>
-</a>
-<a class="tile-container onecolumn widget-tile size0 style0 textstyle5 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/75/91/aeed-tile-220711-oauth-1x1.jpg" href="/daily-swig/dirty-dancing-in-oauth-researcher-discloses-how-cyber-attacks-can-lead-to-account-hijacking">
-<h3 class="tile-text1">
-<span class="tile-text-container">‘Dirty dancing’ in OAuth</span>
-</h3>
-<span class="tile-text2">
-Researcher discloses how cyber-attacks lead to account hijacking    </span>
-<span class="tile-date">11 July 2022</span>
-<span class="tile-text1-alt">‘Dirty dancing’ in OAuth</span>
-<span class="tile-text2-alt">Researcher discloses how cyber-attacks lead to account hijacking</span>
-</a>
-<a class="tile-container onecolumn widget-tile size0 style1 textstyle2 is-whitebackground" data-backgroundcolorid="0" data-backgroundimageurl="/cms/images/2a/c0/4ae2-tile-310330-ransomware-1x1.jpg" data-backgroundoverlay="" href="/daily-swig/astralocker-ransomware-decryptors-released-by-emsisoft">
-<h3 class="tile-text1 notext2">
-AstraLocker ransomware decryptors released</h3>
-<span class="tile-date">08 July 2022</span>
-<span class="tile-text1-alt">AstraLocker ransomware decryptors released</span>
-<span class="tile-text2-alt">Threat actor released decryption keys after abandoning malware to focus on cryptojacking</span>
-</a> </div>
-</div>
-</div>
-</section>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "NewsArticle",
-  "author": {
-    "@type": "Person",
-    "email": "dailyswig@portswigger.net",
-    "name": "Jessica Haworth"
-  },
-  "dateModified": "2022-07-08",
-  "datePublished": "2022-07-06",
-  "headline": "High severity OpenSSL bug could lead to remote code execution",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://portswigger.net/daily-swig/high-severity-openssl-bug-could-lead-to-remote-code-execution"
-  },
-  "image":{
-    "@type": "ImageObject",
-    "url": "https://portswigger.net/cms/images/43/c9/482b-twittercard-220706-openssl-main.jpg"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://portswigger.net/content/images/logos/dailyswig-logo.jpg"
-    },
-    "name": "The Daily Swig",
-    "url": "https://portswigger.net/daily-swig",
-    "sameAs": [
-      "https://twitter.com/dailyswig"
-    ]
-  },
-  "url": "https://portswigger.net/daily-swig/high-severity-openssl-bug-could-lead-to-remote-code-execution"
-}
+<meta content="@UofGlasgow" name="twitter:site"/>
+<meta content="@UofGlasgow" name="twitter:creator"/>
+<!--opengraph meta tags-->
+<!-- navigation object : 3kHead -->
+<!--icons-->
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="#003865" name="theme-color"/>
+<link href="/3t4/img/hd_hi.png" rel="apple-touch-icon" sizes="128x128"/>
+<link href="/3t4/img/hd_small.png" rel="apple-touch-icon" sizes="64x64"/>
+<link href="https://www.gla.ac.uk/3t4/css/print.css" media="print" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese&amp;display=swap" media="screen" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese&amp;display=swap" media="screen" rel="stylesheet"/>
+<!--  <link rel="stylesheet" href="https://use.typekit.net/ogc2zcu.css"> -->
+<link href="/3t4/css/font-awesome.min.css" media="screen" rel="stylesheet"/>
+<script>
+  document.domain = 'gla.ac.uk';
+              var $function = {};
 </script>
-<script nonce="8CMyFAiL+KtNBwMOT6JJi4padSfoMHnr" src="/bundles/cms/dailyswig/details.js?v=5ya8yRh9LpzauhSmPgWeCd2Cc1w"></script>
-<section class="prefootercontainer dailyswig"></section>
-<footer class="wrapper">
-<div class="container">
-<div>
-<p>Burp Suite</p>
-<a href="/burp/vulnerability-scanner">Web vulnerability scanner</a>
-<a href="/burp">Burp Suite Editions</a>
-<a href="/burp/releases">Release Notes</a>
+<script>
+  var loaded = function(){document.body.style.visibility='visible';}
+</script>
+<noscript>
+<style>
+    #leftNavlist nav ul li a,
+    #leftNavlist nav ul li span {
+      display: block;
+    }
+
+    #leftNav {
+      width: 350px;
+      box-shadow: 6px 0px 37px -9px rgba(0, 0, 0, 0.1);
+      top: 128px;
+    }
+
+    #content-container {
+      margin-top: 64px;
+      padding: 3rem 3rem 1rem 3rem;
+    }
+
+    #main {
+      margin-left: 350px;
+
+    }
+
+    .content_opener {
+      display: initial !important;
+    }
+
+    body {
+      visibility: visible !important;
+    }
+  </style>
+<link href="https://www.gla.ac.uk/3t4/css/noscript.css" media="screen" rel="stylesheet" type="text/css">
+</link></noscript>
+<!--pagetype-->
+<meta content="landing" name="pagetype">
+</meta></link></head>
+<body onload="loaded()" style="visibility: hidden;">
+<!--noindex-->
+<div id="skip-to-content" role="navigation">
+<ul>
+<li>
+<a href="#content-container">Skip to main content</a>
+</li>
+</ul>
 </div>
-<div>
-<p>Vulnerabilities</p>
-<a href="/web-security/cross-site-scripting">Cross-site scripting (XSS)</a>
-<a href="/web-security/sql-injection">SQL injection</a>
-<a href="/web-security/csrf">Cross-site request forgery</a>
-<a href="/web-security/xxe">XML external entity injection</a>
-<a href="/web-security/file-path-traversal">Directory traversal</a>
-<a href="/web-security/ssrf">Server-side request forgery</a>
+<div class="row" id="container">
+<div class="show-for-small-only" id="leftNav">
+<div id="leftNavlist">
+<div id="search" style="display:none;">
+<form action="//www.gla.ac.uk/search" id="cse-search-box-mobile" method="get">
+<input id="ssKeywordsMobile" name="query" placeholder="Search" title="search" type="text"/><br/>
+<input name="collection" type="hidden" value="staff-and-website-meta"/>
+<!--<input type="radio" /> Website
+	<input type="radio" /> Courses
+	<input type="radio" /> Staff<br />-->
+<input id="ssSubmitMobile" name="submit" title="submit" type="submit" value="go"/>
+</form>
+<div id="quickSearch">
 </div>
-<div>
-<p>Customers</p>
-<a href="/organizations">Organizations</a>
-<a href="/testers">Testers</a>
-<a href="/developers">Developers</a>
 </div>
-<div>
-<p>Company</p>
-<a href="/about">About</a>
-<a href="/news">PortSwigger News</a>
-<a href="/careers">Careers</a>
-<a href="/about/contact">Contact</a>
-<a href="/legal">Legal</a>
-<a href="/privacy">Privacy Notice</a>
+<nav id="mainNav">
+<!-- navigation object : 3kGlobalNav --><!--id:499580-->
+<ul class="azlinks">
+<li><a href="/study/">Study</a></li>
+<li><a href="/research/">Research</a></li>
+<li><a href="/explore/">Explore</a></li>
+<li><a href="/connect/">Connect</a></li>
+</ul>
+</nav>
 </div>
-<div>
-<p>Insights</p>
-<a href="/web-security">Web Security Academy</a>
-<a href="/blog">Blog</a>
-<a href="/research">Research</a>
-<a href="/daily-swig">The Daily Swig</a>
 </div>
-<div>
-<a href="/"><img alt="PortSwigger Logo" class="footer-logo" src="/content/images/logos/portswigger-logo.svg"/><p>portswigger-logo.png
-space_shuttle
-</p></a>
-<a class="button-outline-blue-small camelcase" href="https://twitter.com/Burp_Suite" rel="noreferrer"><span class="icon-twitter"></span>  Follow us</a>
-<p class="grey">© 2022 PortSwigger Ltd.</p>
+<div class="hide-for-small-only" id="az">
+<div class="columns large-12 medium-12" id="azlinkscontainer">
+<!-- navigation object : 3kGlobalNav -->
+<div id="searchrevealwrapper">
+<svg height="28px" viewbox="0 0 20.39 20.24" width="28px" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.72,20.14l-4.79-4.79a8.36,8.36,0,1,1,2.54-2.61l4.82,4.82a1.17,1.17,0,0,1-.47,1.38l-0.72.72A1.19,1.19,0,0,1,17.72,20.14ZM13.93,8.35a5.58,5.58,0,1,0-5.58,5.58A5.57,5.57,0,0,0,13.93,8.35Z" fill="white" stroke="white"></path>
+</svg>
+</div>
+<!-- navigation object : 3kGlobalNav --><!--id:499580-->
+<ul class="azlinks">
+<li><a href="/study/">Study</a></li>
+<li><a href="/research/">Research</a></li>
+<li><a href="/explore/">Explore</a></li>
+<li><a href="/connect/">Connect</a></li>
+</ul>
+</div>
+<div class="columns large-6 medium-6" id="searchwrapper">
+<form action="//www.gla.ac.uk/search" id="cse-search-box" method="get">
+<div class="row">
+<div class="columns large-8 medium-8" id="ssKeywordsContainer">
+<input id="ssKeywords" name="query" placeholder="Search" title="search" type="text"/>
+</div>
+<input name="collection" type="hidden" value="staff-and-website-meta"/>
+<!--<input type="radio" /> Website
+
+								<input type="radio" /> Courses
+
+								<input type="radio" /> Staff<br />-->
+<div class="columns large-4 medium-4" id="ssSubmitContainer">
+<input id="ssSubmit" name="submit" title="submit" type="submit" value="go"/>
+</div>
+</div>
+</form>
+</div>
+</div>
+<div id="main">
+<div class="row" id="main-inner">
+<div class="columns large-12 medium-12 small-12" id="header">
+<div class="show-for-small-only" id="mobile-nav">
+<div class="menu-control-container" id="search-menu-container-mobile">
+<a aria-label="open search" class="open-search" id="open-search-mobile" role="button">
+<svg viewbox="0 0 20.39 20.24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.72,20.14l-4.79-4.79a8.36,8.36,0,1,1,2.54-2.61l4.82,4.82a1.17,1.17,0,0,1-.47,1.38l-0.72.72A1.19,1.19,0,0,1,17.72,20.14ZM13.93,8.35a5.58,5.58,0,1,0-5.58,5.58A5.57,5.57,0,0,0,13.93,8.35Z" fill="white" stroke="white"><title>Search icon</title></path>
+</svg>
+</a>
+</div>
+<div class="menu-control-container" id="close-menu-container-mobile" style="display:none;">
+<a aria-label="close menu" class="close-menu" id="close-menu-mobile" role="button">
+<svg viewbox="0 0 24.1 24.1" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.32,12L23.8,4.57a1,1,0,0,0,0-1.42L21,0.3a1,1,0,0,0-1.42,0L12,7.78,4.57,0.3A1,1,0,0,0,3.14.3L0.3,3.15a1,1,0,0,0,0,1.42L7.78,12,0.3,19.53A1,1,0,0,0,.3,21L3.14,23.8a1,1,0,0,0,1.42,0L12,16.32l7.48,7.48a1,1,0,0,0,1.42,0L23.8,21a1,1,0,0,0,0-1.42Z" fill="white" stroke="white"><title>Close menu icon</title></path>
+</svg>
+</a>
+</div>
+<div class="menu-control-container" id="open-menu-container-mobile">
+<a aria-label="open menu" class="open-menu" id="open-menu-mobile" role="button">
+<svg viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<rect fill="white" height="4" stroke="white" width="20"><title>Menu icon bar 1</title></rect>
+<rect fill="white" height="4" stroke="white" width="20" y="8"><title>Menu icon bar 2</title></rect>
+<rect fill="white" height="4" stroke="white" width="20" y="16"><title>Menu icon bar 3</title></rect>
+</svg>
+</a>
+</div>
+</div>
+<div id="header-logo">
+<a aria-label="University of Glasgow homepage" href="https://www.gla.ac.uk"><img alt="University of Glasgow logo small" class="hide-for-large-only" height="64" id="small-logo" src="/3t4/img/university-of-glasgow-min.png" width="295"/></a>
+<a aria-label="University of Glasgow homepage" href="https://www.gla.ac.uk"><img alt="University of Glasgow logo" class="hide-for-small-only double" height="66" id="large-logo" src="/3t4/img/university-of-glasgow-280.png" width="210"/></a>
+</div>
+</div>
+<!--endnoindex-->
+<div id="content-container">
+<div class="row" id="content-container-inner">
+<!--content starts here-->
+<!--section header-->
+<div class="columns large-3 medium-3 hide-for-small-only" id="section-navigation" style="display:none">
+<div id="section-navigation-inner">
+<div id="section-navigation-inner-ul-wrapper">
+<!-- navigation object : 3kGlobalNav --><!--id:499580-->
+<ul class="azlinks">
+<li><a href="/study/">Study</a></li>
+<li><a href="/research/">Research</a></li>
+<li><a href="/explore/">Explore</a></li>
+<li><a href="/connect/">Connect</a></li>
+</ul>
+</div>
+</div>
+</div>
+<main class="columns large-12 medium-12 small-12" id="main-content-wrapper"><div class="show-for-small-only spacer">
+</div><div class="wrapper grey">
+<div class="wrapper-inner">
+<a class="content-anchor" id="d.en.500239"></a>
+<!--
+<div class="row standardContent">
+     <div id="content_500239_wrapperstart" class="maincontent wrapper-start fullwidth columns content medium-12 large-12">
+		
+     </div>
+</div>
+--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-6 medium-6 columns tileContainer isplain" data-colspan="8" data-contentid="499135" data-contentname="course search" data-modified="25/05/2022" data-noimage="true">
+<!--navigation tile plain-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement plain TileBackgroundCobalt cobalt" data-equalizer-watch="tileRow">
+<div class="text tileText search">
+<h2>STUDY SEARCH</h2>
+<form action="//www.gla.ac.uk/study/search/" class="coursefinder_all" id="coursefinder" method="GET">
+<div class="row">
+<div class="column large-12 medium-12 small-12" id="coursefinder-input">
+<input aria-label="programme keyword" id="q" name="query" title="course keyword" type="text"/>
+</div>
+<div class="column large-8 medium-8 small-12">
+<select aria-label="programme level" id="l" name="level" title="level of study">
+<option value="">level of study</option>
+<option value="ugentry">Undergraduate</option>
+<!--<option value="ug">Undergraduate [2023]</option>-->
+<option value="pg">Postgraduate taught</option>
+<option value="pgr">Postgraduate research</option>
+<option value="sc">Short courses</option>
+<option value="cpd">Continuing professional development</option>
+</select>
+</div>
+<div class="column large-4 medium-4 small-12">
+<input id="s" type="submit" value="search"/>
+</div>
+</div>
+</form>
+</div>
+</div>
+<!--end navigation tile plain-->
+</div>
+<!--end navigation wrapper-->
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="500240" data-contentname="Study A-Zs" data-modified="17/05/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundCobalt cobalt" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage">
+<!-- -->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<ul>
+<li><a href="/subjects/">Subjects A-Z</a></li>
+<li><a href="/undergraduate/">Undergraduate study</a></li>
+<li><a href="/postgraduate/">Postgraduate study</a></li>
+<li><a href="/international/abroadexchange/">Study abroad &amp; exchange opportunities</a></li>
+<li><a href="/explore/visit/">Visit us / Open Days</a></li>
+<li><a href="/study/studentlife/">Student life</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="500627" data-contentname="Flexible study" data-modified="03/02/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundAlt3 light-grey" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage"><img alt="The Main Building of the University looking south" class="" height="300" loading="lazy" src="/media/Media_811846_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: castle
+ ocr: </p>
+<!--<img src="/media/Media_811846_smxx-140x60.jpg" width="140" height="60"  alt="The Main Building of the University looking south"  />-->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Flexible study</h2>
+<ul>
+<li><a href="/study/online/">Online study options</a></li>
+<li><a href="/study/cpd/">Continuing professional development (CPD)</a></li>
+<li><a href="/study/microcredentials/">Microcredentials courses</a></li>
+<li><a href="/study/short/">Short courses at the University</a></li>
+<li><a href="/study/short/accesscourses/">Access to Higher Education </a></li>
+<li><a href="/undergraduate/choosingyourdegree/parttime/">Part-time undergraduate study</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="738633" data-contentname="Student life" data-modified="16/06/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundThistle thistle" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage"><img alt="" class="" height="268" loading="lazy" src="/media/Media_711772_smxx.jpg" style="width : 626px; height : 268px; " title="" width="626"/><p>recog: academic_gown
+ ocr: </p>
+<!--<img src="/media/Media_711772_smxx-140x59.jpg" width="140" height="59"  alt=""  />-->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Student life</h2>
+<ul>
+<li><a href="/myglasgow/students/new/">New students</a></li>
+<li><a href="/study/studentlife/">Glasgow living, support and life beyond the books</a></li>
+<li><a href="/study/studentlife/askastudent/">Chat to our students about life at UofG</a></li>
+<li><a href="/study/studentlife/blogs/undergraduate/">Undergraduate blogs</a></li>
+<li><a href="/study/studentlife/blogs/postgraduate/">Postgraduate blogs</a></li>
+<li><a href="/study/studentlife/vlogs/">Student life vlogs</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="511113" data-contentname="homepagenewnew  International" data-modified="03/05/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundLavender lavender" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage">
+<!-- -->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>International Glasgow</h2>
+<p>Our diverse University community attracts students and staff from over 140 different countries.</p>
+<ul>
+<li><a href="/international/">Information for international students</a></li>
+<li><a href="/explore/glasgowinternational/">Explore our global connections: Glasgow International</a></li>
+<li><a href="/study/eu/">Information for EU students and applicants</a></li>
+<li><a href="/postgraduate/erasmusmundus/">Erasmus Mundus joint master degrees</a></li>
+</ul>
+<p class="calltoaction update light-grey" style="background: #F7F7F7 url('/3t4/img/ukraine-flag.png') no-repeat 1rem 1.2rem !important;"><a href="/explore/ukraine/">Ukraine: our response</a></p>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex-->
+<div class="row standardContent">
+<div class="maincontent wrapper-end fullwidth columns content medium-12 large-12" id="content_500243_wrapperend">
+<p><a class="calltoaction" href="/study/">More about studying at Glasgow</a></p>
+</div>
+</div>
+</div>
+</div><div class="wrapper grey">
+<div class="wrapper-inner">
+<a class="content-anchor" id="d.en.500255"></a>
+<div class="row wrapperHeading standardContent"><div class="columns large-12 medium-12"><h2 class="unresponsivestyle wrapper_heading">Research</h2></div></div>
+<!--
+<div class="row standardContent">
+     <div id="content_500255_wrapperstart" class="maincontent wrapper-start fullwidth columns content medium-12 large-12">
+		
+     </div>
+</div>
+--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="721166" data-contentname="World-changing research tile" data-modified="12/05/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundAlt2 slate" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage"><img alt="Sunrise over globe" class="" height="300" loading="lazy" src="/media/Media_529407_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: geyser
+ ocr: </p>
+<!--<img src="/media/Media_529407_smxx-140x60.jpg" width="140" height="60"  alt="Sunrise over globe"  />-->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>World-changing research</h2>
+<ul>
+<li><span class="TextRun SCXW76921972 BCX0" data-contrast="auto" lang="EN-GB" xml:lang="EN-GB"><a href="/research/excellence/">REF 2021: recognition for our world-leading research, and the positive impact it has on society</a></span></li>
+<li><a href="/research/">Explore our Research Beacons: six collaborative area of research excellence</a></li>
+<li><a href="/research/arc/">ARC: find out more about our flagship Advanced Research Centre, opening Spring 2022</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="636201" data-contentname="Centres for Doctoral Training " data-modified="12/07/2021">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundAlt3 light-grey" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage">
+<!-- -->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Centres for Doctoral Training </h2>
+<p>Multiple PhD scholarships available:</p>
+<ul>
+<li><a href="https://fuse-cdt.org.uk/">Future Ultrasonic Engineering (FUSE)</a></li>
+<li><a href="https://lifetime-cdt.org/">Engineered Tissues for Discovery, Industry and Medicine (lifETIME)</a></li>
+<li><a href="https://socialcdt.org/">UKRI Centre for Socially Intelligent Artificial Agents (SOCIAL)</a></li>
+<li><a href="/colleges/mvls/graduateschool/wellcomephd/">Wellcome Trust PhD programme</a></li>
+<li><a href="https://www.ed.ac.uk/usher/precision-medicine">MRC Precision Medicine</a></li>
+</ul>
+<p>All our <a href="/postgraduate/doctoraltraining/">Centres for Doctoral Training </a></p>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="500252" data-contentname="Our research" data-modified="12/05/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundCobalt cobalt" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage">
+<!-- -->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Postgraduate research</h2>
+<ul>
+<li><a href="/postgraduate/research/">Research opportunities</a></li>
+<li><a href="/postgraduate/doctoraltraining/">Doctoral training</a></li>
+</ul>
+<h2>Strategy</h2>
+<p>Developing our successful research community</p>
+<ul>
+<li><a href="/research/strategy/">Our strategy and policies</a></li>
+<li><a href="/research/excellence/">Our research excellence</a></li>
+<li><a href="/research/ourresearchenvironment/">Our research environment</a></li>
+</ul>
+<h2>Research A-Z</h2>
+<ul>
+<li><a href="/research/az/">Browse our research units and areas</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex-->
+<div class="row standardContent">
+<div class="maincontent wrapper-end fullwidth columns content medium-12 large-12" id="content_500256_wrapperend">
+<p><a class="calltoaction" href="/research/">More about research at Glasgow</a></p>
+</div>
+</div>
+</div>
+</div><div class="wrapper grey">
+<div class="wrapper-inner">
+<a class="content-anchor" id="d.en.500298"></a>
+<div class="row wrapperHeading standardContent"><div class="columns large-12 medium-12"><h2 class="unresponsivestyle wrapper_heading">Explore</h2></div></div>
+<!--
+<div class="row standardContent">
+     <div id="content_500298_wrapperstart" class="maincontent wrapper-start fullwidth columns content medium-12 large-12">
+		
+     </div>
+</div>
+--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="392615" data-contentname="About us  visit us tile" data-modified="21/09/2020">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundAlt3 light-grey" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage">
+<!-- -->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Visit us</h2>
+<ul>
+<li><a href="/explore/maps/">Maps and travel</a></li>
+<li><a href="/explore/visit/undergraduate/">Undergraduate events</a></li>
+<li><a href="/explore/visit/postgraduate/">Postgraduate events</a></li>
+<li><a href="/explore/campuses/">Our campuses</a></li>
+<li><a href="/explore/visit/attractions/">Visitor attractions</a></li>
+<li><a href="/explore/visit/campustours/">Campus tours</a></li>
+<li><a href="/hunterian/">The Hunterian</a></li>
+<li><a href="/study/studentlife/glasgow/">City of Glasgow</a></li>
+<li><a href="/study/studentlife/scotland/">Scotland</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="528490" data-contentname="homepagenewnew  Explore A-Z" data-modified="19/04/2018">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundDefault" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage">
+<!-- -->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Find out more</h2>
+<ul>
+<li><a href="/schools/">Schools</a></li>
+<li><a href="/researchinstitutes/">Research Institutes</a></li>
+<li><a href="/colleges/">Colleges</a></li>
+<li><a href="/myglasgow/library/">The Library</a></li>
+<li><a href="/subjects/">Subjects A-Z</a></li>
+<li><a href="/stafflist/">Staff A-Z</a></li>
+<li><a href="/myglasgow/services/">Services A-Z</a></li>
+<li><a href="/explore/facts/">Facts and figures</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="822581" data-contentname="World top 100" data-modified="25/11/2021">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundDefault" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage"><img alt="THE world university rankings" class="" height="300" loading="lazy" src="/media/Media_738397_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: street_sign
+ ocr: WORLDTHEUNIVERSITYRANKINGS</p>
+<!--<img src="/media/Media_738397_smxx-140x60.jpg" width="140" height="60"  alt="THE world university rankings"  />-->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>World top 100</h2>
+<ul>
+<li><a href="https://www.timeshighereducation.com/world-university-rankings/university-glasgow">Times Higher Education World University Rankings</a></li>
+<li><a href="https://www.topuniversities.com/university-rankings/world-university-rankings/2022">QS World University Rankings</a></li>
+</ul>
+<ul>
+<li><a href="/explore/awardsandrankings/">Awards and rankings</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="824217" data-contentname="sustainability" data-modified="28/04/2022">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundLeaf leaf" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage"><img alt="Modern solar farm panoramic at sunrise on a summers day" class="" height="300" loading="lazy" src="/media/Media_814056_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: fountain
+ ocr: </p>
+<!--<img src="/media/Media_814056_smxx-140x60.jpg" width="140" height="60"  alt="Modern solar farm panoramic at sunrise on a summers day"  />-->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Sustainability at Glasgow</h2>
+<ul>
+<li><a href="/explore/sustainability/">The first UK University to declare it would divest from fossil fuels within a decade</a></li>
+<li><a href="/explore/awardsandrankings/the-impact-rankings/">Ranked in the world top 20 for our work towards the United Nations’ Sustainable Development Goals</a></li>
+</ul>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-6 medium-6 columns tileContainer isplain" data-colspan="4" data-contentid="529572" data-contentname="Homepage news" data-modified="09/12/2021" data-noimage="true">
+<!--navigation tile plain-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement plain TileBackgroundAlt1 universityblue" data-equalizer-watch="tileRow">
+<div class="text tileText search">
+<h2>News</h2>
+<ul class="homepage_news">
+</ul>
+<p><a href="http://www.gla.ac.uk/news/">Full news listings</a></p>
+</div>
+</div>
+<!--end navigation tile plain-->
+</div>
+<!--end navigation wrapper-->
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-6 medium-6 columns tileContainer isplain" data-colspan="4" data-contentid="529573" data-contentname="Homepage events " data-modified="09/12/2021" data-noimage="true">
+<!--navigation tile plain-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement plain TileBackgroundAlt2 slate" data-equalizer-watch="tileRow">
+<div class="text tileText search">
+<h2>Events</h2>
+<ul class="homepage_events">
+</ul>
+<p><a href="http://www.gla.ac.uk/events/">Full event listings</a></p>
+</div>
+</div>
+<!--end navigation tile plain-->
+</div>
+<!--end navigation wrapper-->
+<!--endnoindex-->
+<div class="row standardContent">
+<div class="maincontent wrapper-end fullwidth columns content medium-12 large-12" id="content_500301_wrapperend">
+<p><a class="calltoaction" href="/explore/">Explore more</a></p>
+</div>
+</div>
+</div>
+</div><div class="wrapper grey">
+<div class="wrapper-inner">
+<a class="content-anchor" id="d.en.506934"></a>
+<div class="row wrapperHeading standardContent"><div class="columns large-12 medium-12"><h2 class="unresponsivestyle wrapper_heading">Connect</h2></div></div>
+<!--
+<div class="row standardContent">
+     <div id="content_506934_wrapperstart" class="maincontent wrapper-start fullwidth columns content medium-12 large-12">
+		
+     </div>
+</div>
+--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-6 medium-6 columns tileContainer" data-colspan="6" data-contentid="506767" data-contentname="Connect  Support us tile" data-modified="10/12/2019">
+<!--navigation tile-->
+<div class="panel tile tile01 contentPanel promo singleContentElement TileBackgroundAlt2 slate" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage" style="">
+<img alt="artist's impression of new Research Hub: Impression courtesy HOK Architects" class="" height="300" loading="lazy" src="/media/Media_527840_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: greenhouse
+ ocr: </p>
+</div>
+<!--end navigation tile image-->
+<!--navigation tile text-->
+<div class="text tileText">
+<h2>
+<a href="/connect/supportus/">Support us</a>
+</h2>
+<p><a href="/connect/supportus/">Find out more about our £1billion development to build a campus fit for today and the future.</a></p>
+</div>
+<!--end navigation tile text-->
+</div>
+<!--end navigation tile-->
+</div>
+<!--end navigation tile wrapper-->
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-6 medium-6 columns tileContainer" data-colspan="6" data-contentid="529581" data-contentname="Connect  Alumni tile" data-modified="10/12/2019">
+<!--navigation tile-->
+<div class="panel tile tile01 contentPanel promo singleContentElement TileBackgroundLavender lavender" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage" style="">
+<img alt="Graduations" class="" height="300" loading="lazy" src="/media/Media_527839_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: academic_gown
+ ocr: </p>
+</div>
+<!--end navigation tile image-->
+<!--navigation tile text-->
+<div class="text tileText">
+<h2>
+<a href="/alumni/">Alumni</a>
+</h2>
+<p><a href="/alumni/">Stay in touch with your University. Find out more about alumni activities at the University of Glasgow.</a></p>
+</div>
+<!--end navigation tile text-->
+</div>
+<!--end navigation tile-->
+</div>
+<!--end navigation tile wrapper-->
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns tileContainer" data-colspan="4" data-contentid="556979" data-contentname="Business &amp; innovation single" data-modified="16/02/2021">
+<!--navigation tile-->
+<div class="panel tile tile01 contentPanel promo singleContentElement TileBackgroundDefault" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage" style="">
+<img alt="researcher in lab" class="" height="300" loading="lazy" src="/media/Media_293353_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: lab_coat
+ ocr: </p>
+</div>
+<!--end navigation tile image-->
+<!--navigation tile text-->
+<div class="text tileText">
+<h2>
+<a href="/connect/businessandinnovation/">Business and innovation</a>
+</h2>
+<p><a href="/connect/businessandinnovation/">Working with the University of Glasgow: see how we can share our expertise with you.</a></p>
+</div>
+<!--end navigation tile text-->
+</div>
+<!--end navigation tile-->
+</div>
+<!--end navigation tile wrapper-->
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns end tileContainer" data-colspan="4" data-contentid="773684" data-contentname="Civic engagement" data-modified="16/02/2021">
+<!--navigation tile 01-->
+<div class="tile panel contentPanel jumpLink alt solid block singleContentElement TileBackgroundThistle thistle" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage"><img alt="Image of Glasgow viewed from the river Clyde at night" class="" height="300" loading="lazy" src="/media/Media_773746_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: steel_arch_bridge
+ ocr: d'</p>
+<!--<img src="/media/Media_773746_smxx-140x60.jpg" width="140" height="60"  alt="Image of Glasgow viewed from the river Clyde at night"  />-->
+</div>
+<!--end navigation tile image-->
+<!--navigation tile content-->
+<div class="container tileText">
+<h2>Glasgow: our city, our partner</h2>
+<ul>
+<li><a href="/connect/civic/">We are committed to civic engagement and helping those communities that we are part of thrive. Find out more about our local partnerships.</a></li>
+</ul>
+<p> </p>
+</div>
+<!--navigation tile content-->
+</div>
+<!--end navigation tile 01-->
+</div>
+<!--endnoindex--><!--noindex-->
+<!--navigation tile wrapper-->
+<div class="large-4 medium-6 columns tileContainer" data-colspan="4" data-contentid="506768" data-contentname="Connect  Contact tile" data-modified="18/02/2019">
+<!--navigation tile-->
+<div class="panel tile tile01 contentPanel promo singleContentElement TileBackgroundAlt3 light-grey" data-equalizer-watch="tileRow">
+<!--navigation tile image-->
+<div class="image tileImage" style="">
+<img alt="Students in formation in quad" class="" height="300" loading="lazy" src="/media/Media_359118_smxx.jpg" style="width : 700px; height : 300px; " title="" width="700"/><p>recog: maze
+ ocr: Uorg</p>
+</div>
+<!--end navigation tile image-->
+<!--navigation tile text-->
+<div class="text tileText">
+<h2>
+<a href="/connect/contact/">Contact us</a>
+</h2>
+<p><a href="/connect/contact/">Find all the contact details you need to get in touch with someone who can help answer your questions.</a></p>
+</div>
+<!--end navigation tile text-->
+</div>
+<!--end navigation tile-->
+</div>
+<!--end navigation tile wrapper-->
+<!--endnoindex-->
+<div class="row standardContent">
+<div class="maincontent wrapper-end fullwidth columns content medium-12 large-12" id="content_506762_wrapperend">
+<p><a class="calltoaction" href="/connect/">Make more connections</a></p>
+</div>
+</div>
+</div>
+</div><script>
+window.ishomepage = true;
+</script> <!--content ends here-->
+<!--noindex-->
+<div style="clear:both;"></div>
+<!--end content-container-inner-->
+</main>
+<!--end content-container-->
+</div>
+</div>
+<footer class="row">
+<div class="row" id="btt">
+<a href="#" id="backtotop">Back to the top</a>
+</div>
+<div class="row" id="footerContact">
+<!-- navigation object : 3k footer global --><div class="columns large-3 medium-3 small-12">
+<h2><a href="/study/">STUDY</a></h2>
+<ul>
+<li><a href="/subjects/">Subjects A-Z</a></li>
+<li><a href="/undergraduate/">Undergraduate</a></li>
+<li><a href="/postgraduate/">Postgraduate</a></li>
+<li><a href="/study/online/">Online study</a></li>
+<li><a href="/study/short/">Short courses</a></li>
+<li><a href="/international/">International students</a></li>
+<li><a href="/study/studentlife/">Student life</a></li>
+<li><a href="/scholarships/">Scholarships and funding</a></li>
+<li><a href="/explore/visit/">Visit us / Open Days</a></li>
+</ul>
+</div>
+<div class="columns large-3 medium-3 small-12">
+<h2><a href="/research/">RESEARCH</a></h2>
+<ul>
+<li><a href="/research/az/">Research units A-Z</a></li>
+<li><a href="/postgraduate/research/">Research opportunities A-Z</a></li>
+<li><a href="/research/beacons/">Glasgow Research Beacons</a></li>
+<li><a href="/research/strategy/">Research strategy &amp; policies</a></li>
+<li>Research excellence</li>
+<li><a href="/research/ourresearchenvironment/">Our research environment</a></li>
+</ul>
+</div>
+<div class="columns large-3 medium-3 small-12">
+<h2><a href="/explore/">EXPLORE</a></h2>
+<ul>
+<li><a href="/explore/meetglasgow/">Meet World Changing Glasgow</a></li>
+<li><a href="/study/studentlife/glasgow/">City of Glasgow</a></li>
+<li><a href="/explore/visit/">Visit us</a></li>
+<li><a href="/explore/accessibility/">Accessibility</a></li>
+<li><a href="/explore/maps/">Maps and travel</a></li>
+<li><a href="/explore/facts/">Facts &amp; figures</a></li>
+<li><a href="/news/">News</a> </li>
+<li><a href="/events/">Events</a></li>
+<li><a href="/schools/">Schools</a></li>
+<li><a href="/researchinstitutes/">Research Institutes</a></li>
+<li><a href="/colleges/">Colleges</a></li>
+<li><a href="/myglasgow/services/">Services</a></li>
+<li><a href="/myglasgow/library/">Library</a></li>
+</ul>
+</div>
+<div class="columns large-3 medium-3 small-12">
+<h2><a href="/connect/">CONNECT</a></h2>
+<ul>
+<li><a href="/stafflist/">Staff A-Z</a></li>
+<li><a href="/alumni/">Information for our alumni</a></li>
+<li><a href="/connect/supportus/">Support us</a></li>
+<li><a href="/connect/businessandinnovation/">Business &amp; innovation</a></li>
+<li><a href="/connect/publicengagement/">Community and public engagement</a></li>
+<li><a href="/connect/interact/">Social Media listings</a></li>
+<li><a href="/study/studentlife/askastudent/">Ask a student</a></li>
+</ul>
+<h2><a href="/explore/jobs/">JOBS AT GLASGOW</a></h2>
+<ul>
+<li><a href="https://my.corehr.com/pls/uogrecruit/erq_search_package.search_form?p_company=1&amp;p_internal_external=E">Current vacancies</a></li>
+</ul>
+</div>
+</div>
+<div class="row" id="footerNav">
+<div class="columns large-3 medium-6 small-12">
+<p><a href="/"><img alt="University of Glasgow" height="70" loading="lazy" src="/3t4/img/marque.svg" style="height:70px; width:auto" width="225"/><p>recog: ski
+ ocr: Universityof Glasgow</p>
+</a></p>
+<ul class="social list-inline">
+<li class="facebook">
+<a href="https://www.facebook.com/UofGlasgow"><img alt="Facebook" height="40" loading="lazy" src="/3t4/img/fb.svg" width="40"/><p>recog: matchstick
+ ocr: </p></a>
+</li>
+<li class="twitter">
+<a href="https://twitter.com/UofGlasgow"><img alt="Twitter" height="40" loading="lazy" src="/3t4/img/tw.svg" width="40"/><p>recog: matchstick
+ ocr: </p></a>
+</li>
+<li class="instagram">
+<a href="https://www.instagram.com/uofglasgow/"><img alt="Instagram" height="40" loading="lazy" src="/3t4/img/inst.svg" width="40"/><p>recog: matchstick
+ ocr: </p></a>
+</li>
+<li class="youtube">
+<a href="https://www.youtube.com/uofglasgow"><img alt="YouTube" height="40" loading="lazy" src="/3t4/img/yt.svg" width="40"/><p>recog: velvet
+ ocr: </p></a>
+</li>
+<!--<li class="pinterest">
+									<a href="#"><img src="/3t4/img/pin.svg" alt="Pinterest" /></a>
+								</li>
+								<li class="googleplus">
+									<a href="#"><img src="/3t4/img/go.svg" alt="Google+" /></a>
+								</li>-->
+</ul>
+<p>The University of Glasgow is a registered Scottish charity: Registration Number SC004401</p>
+</div>
+<div class="columns large-3 medium-3 small-12">
+<h2>University <em>of</em> Glasgow</h2>
+<ul>
+<li>Glasgow, G12 8QQ, Scotland</li>
+<li>Tel +44 (0) 141 330 2000</li>
+<li><a href="/connect/contact/">Contact us</a></li>
+<li><a href="/explore/maps/">Maps and travel</a></li>
+</ul>
+</div>
+<div class="columns large-3 medium-3 small-12">
+<h2>Legal</h2>
+<ul>
+<li><a href="/legal/accessibility/">Accessibility statement</a></li>
+<li><a href="/foi/">Freedom of information</a></li>
+<li><a href="/legal/freedomofinformation/foipublicationscheme/">FOI publication scheme</a></li>
+<li><a href="/legal/modernslaveryact/">Modern Slavery Statement</a></li>
+<li><a href="/legal/privacy/">Privacy and cookies</a></li>
+<li><a href="/legal/termsofuse/">Terms of use</a></li>
+</ul>
+</div>
+<div class="columns large-3 medium-3 small-12">
+<h2>Current students</h2>
+<ul>
+<li><a href="/myglasgow/students/">MyGlasgow Students</a></li>
+</ul>
+<h2>Staff</h2>
+<ul>
+<li><a href="/myglasgow/staff/">MyGlasgow Staff</a></li>
+</ul>
+</div>
+<div class="columns large-6 medium-6 small-12"></div>
+<div class="columns large-6 medium-6 small-12">
+<!--badges-->
+<div class="row">
+<div class="columns large-6 medium-6 small-12">
+</div>
+<div class="columns large-6 medium-6 small-12">
+<a href="https://www.gla.ac.uk/explore/awardsandrankings/scottish/" id="uoty">
+<picture>
+<source srcset="/3t4/img/scottish-university-of-the-year-2022-logo.webp" type="image/webp"/>
+<source srcset="/3t4/img/scottish-university-of-the-year-2022-logo.png" type="image/png"/>
+<img alt="The Times and Sunday Times Scottish University of the Year 2022" height="374" id="uni-of-the-year" src="/3t4/img/scottish-university-of-the-year-2022-logo.webp" width="283"/>
+</picture>
+</a>
+</div></div>
 </div>
 </div>
 </footer>
-<a class="back-to-top" href="#top"><svg height="26" viewbox="0 0 26 26" width="26" xmlns="http://www.w3.org/2000/svg"><polygon fill="#f63" points="4.07 14.7 5.03 15.78 12.48 9.13 19.94 15.78 20.9 14.7 12.48 7.2 4.07 14.7"></polygon><path d="M13,0A13,13,0,1,0,26,13,13,13,0,0,0,13,0Zm0,24.56A11.56,11.56,0,1,1,24.56,13,11.58,11.58,0,0,1,13,24.56Z" fill="#f63"></path></svg></a>
-</input></body>
+</div>
+</div>
+</div>
+<!-- navigation object : 3kFooterScripts --> <link href="https://www.gla.ac.uk/3t4/css/main.css?_=1657292211" media="screen" rel="stylesheet" type="text/css">
+<script src="https://www.gla.ac.uk/3t4/js/main.min.js?_=1657292209"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {loaded()});
+</script>
+<div aria-label="edit consent" class="consent-switch" id="editconsent" role="complementary">
+<p>
+<span class="consent-switch" id="consent-intro">The University of Glasgow uses cookies for analytics and advertising.
+                Find out more about our <a href="https://www.gla.ac.uk/legal/privacy/">Privacy policy</a>.</span>
+<button aria-label=" privacy settings" class="button showsettings"><img alt="settings icon" aria-hidden="true" class="consent-cog consent-switch" src="/3t4/img/cog-white.svg"><span class="consent-switch"> privacy settings</span></img><p>recog: jigsaw_puzzle
+ ocr: </p></button>
+<button aria-label="close privacy bar" class="button showsettings outside close consent-switch"><span class="consent-switch">close</span></button>
+</p>
+</div>
+<div aria-label="edit consent controls" id="gu-consent" role="complementary">
+<div id="consentinner">
+<h1>We use cookies</h1>
+<h2>Necessary cookies</h2>
+<p>Necessary cookies enable core functionality. The website cannot function properly without these cookies, and can only be disabled by changing your browser preferences.</p>
+<h2 id="analytics_cookies">Analytics cookies</h2>
+<p>Analytical cookies help us improve our website. We use Google Analytics. All data is anonymised.</p>
+<label class="switch" for="analyticsallowed">
+<span style="display:none;">Switch analytics</span>
+<input aria-labelledby="analytics_cookies" data-cookie="gu_analytics" id="analyticsallowed" name="analyticsallowed" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+<div class="status_wrapper">
+<span class="status analyticsallowed_status_on">ON</span>
+<span class="status analyticsallowed_status_off">OFF</span>
+</div>
+<h2 id="hotjar_cookies">Hotjar</h2>
+<p>Hotjar helps us to understand and improve our users’ behaviour by visually representing their clicks, taps and scrolling. All data is anonymised.</p>
+<label class="switch" for="hotjarallowed">
+<span style="display:none;">Switch hotjar</span>
+<input aria-labelledby="hotjar_cookies" data-cookie="gu_hotjar" id="hotjarallowed" name="hotjarallowed" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+<div class="status_wrapper">
+<span class="status hotjarallowed_status_on">ON</span>
+<span class="status hotjarallowed_status_off">OFF</span>
+</div>
+<h2 id="marketing_cookies">Marketing cookies</h2>
+<p>Marketing cookies are used to ensure our marketing content is relevant, timely and interest based.  They allow our approved partner to measure effectiveness and serve appropriate and personalised marketing messages on other websites based on your activity on glasgow.ac.uk</p>
+<label class="switch" for="remarketingallowed">
+<span style="display:none;">Switch marketing cookies</span>
+<input aria-labelledby="marketing_cookies" data-cookie="gu_remarketing" id="remarketingallowed" name="remarketingallowed" type="checkbox"/>
+<span class="slider round"></span>
+</label>
+<div class="status_wrapper">
+<span class="status remarketingallowed_status_on">ON</span>
+<span class="status remarketingallowed_status_off">OFF</span>
+</div>
+<p><a href="https://www.gla.ac.uk/legal/privacy/">Privacy policy</a></p>
+<p><button class="showsettings close button">close</button></p>
+</div>
+</div>
+</link></body>
 </html>
+<!--endnoindex-->
