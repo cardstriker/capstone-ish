@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 import urllib
 from  urllib.request import urlopen
 from urllib.parse import urlparse
+from urllib.error import HTTPError
+from urllib.error import URLError
 import validators
 from PIL import Image
 from reportlab.graphics import renderPDF, renderPM
@@ -46,7 +48,13 @@ class ImgToTxtApp:
 		if isinstance(isURLValid, validators.ValidationFailure):
 			return False
 		#Open the URL
-		page = urlopen(url).read()
+		try:
+		    page = urlopen(url).read()
+		except HTTPError as e:
+		    return False
+		except URLError as e:
+		    return False
+		#page = urlopen(url).read()
 		#Parsing the webpage to BeautifulSoup
 		soup = BeautifulSoup(page, 'html.parser')
 
