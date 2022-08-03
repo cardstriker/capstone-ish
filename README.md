@@ -12,3 +12,8 @@
 2. Navigate to the project folder `cd /path/to/capstone-ish/`
 3. Run `python .\UserInterface.py`
 
+##Code
+The application is split into 3 sections
+1. UserInterface.py : 
+Contains the user interface using tkinter. 
+2. 
